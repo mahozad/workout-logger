@@ -1,4 +1,4 @@
-package com.example.workout_logger.ui.theme
+package ir.mahozad.workout_logger.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

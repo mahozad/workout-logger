@@ -1,4 +1,4 @@
-package com.example.workout_logger
+package ir.mahozad.workout_logger
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.workout_logger.ui.theme.WorkoutLoggerTheme
+import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

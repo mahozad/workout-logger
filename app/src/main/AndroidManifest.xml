@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.workout_logger">
+          package="ir.mahozad.workout_logger">
 
   <application
       android:allowBackup="true"

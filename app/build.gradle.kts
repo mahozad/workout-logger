@@ -9,7 +9,7 @@ android {
     compileSdk = 32
 
     defaultConfig {
-        applicationId = "com.example.workout_logger"
+        applicationId = "ir.mahozad.workout_logger"
         minSdk = 21
         targetSdk = 32
         versionCode = 1

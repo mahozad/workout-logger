@@ -1,4 +1,4 @@
-package com.example.workout_logger
+package ir.mahozad.workout_logger
 
 import org.junit.Test
 
