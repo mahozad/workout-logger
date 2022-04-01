@@ -1,10 +1,11 @@
+rootProject.name = "Workout-Logger"
+include(":app")
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        jcenter()
     }
 }
-rootProject.name = "Workout-Logger"
-include(":app")
