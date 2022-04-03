@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WorkoutLoggerTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    MainScreen("Android")
+                    MainScreen()
                 }
             }
         }
@@ -25,9 +26,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(name: String) {
+fun MainScreen() {
     Button(onClick = {}) {
-        Text(name)
+        Text(stringResource(R.string.new_workout))
     }
 }
 
@@ -35,6 +36,6 @@ fun MainScreen(name: String) {
 @Composable
 fun DefaultPreview() {
     WorkoutLoggerTheme {
-        MainScreen("Android")
+        MainScreen()
     }
 }
