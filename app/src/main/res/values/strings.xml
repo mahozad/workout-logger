@@ -4,6 +4,8 @@
   <string name="start_workout">Start Workout</string>
   <string name="new_user">New User</string>
   <string name="user_information">User Information</string>
-  <string name="user_name">Name</string>
-  <string name="fist_name_label">John</string>
+  <string name="user_fist_name">Name:</string>
+  <string name="user_fist_name_label">John</string>
+  <string name="user_last_name">Last Name:</string>
+  <string name="user_last_name_label">Smith</string>
 </resources>

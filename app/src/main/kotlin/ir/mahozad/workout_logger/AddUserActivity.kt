@@ -33,26 +33,47 @@ class AddUserActivity : ComponentActivity() {
 
 @Composable
 fun AddUserScreen() {
-    var firstName by remember { mutableStateOf("") }
-    val focusRequester = FocusRequester()
     Column {
         Text(stringResource(R.string.user_information))
         Spacer(modifier = Modifier.height(10.dp))
-        Row (verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.user_name))
-            Spacer(modifier = Modifier.width(10.dp))
-            TextField(
-                value = firstName,
-                onValueChange = { firstName = it },
-                label = { Text(stringResource(R.string.fist_name_label)) },
-                modifier = Modifier
-                    .focusRequester(focusRequester)
-                    .testTag("input-first-name")
-            )
-        }
+        Input(
+            shouldRequestFocus = true,
+            stringResource(R.string.user_fist_name),
+            stringResource(R.string.user_fist_name_label),
+            tag = "input-first-name"
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Input(
+            shouldRequestFocus = false,
+            stringResource(R.string.user_last_name),
+            stringResource(R.string.user_last_name_label),
+            tag = "input-last-name"
+        )
     }
-    DisposableEffect(Unit) {
-        focusRequester.requestFocus()
-        onDispose { }
+}
+
+@Composable
+fun Input(shouldRequestFocus: Boolean, text: String, label: String, tag: String) {
+    var value by remember { mutableStateOf("") }
+    val focusRequester = FocusRequester()
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(text)
+        Spacer(modifier = Modifier.width(10.dp))
+        TextField(
+            value = value,
+            onValueChange = { value = it },
+            label = { Text(label) },
+            modifier = Modifier
+                .focusRequester(focusRequester)
+                .testTag(tag)
+        )
+    }
+
+    if (shouldRequestFocus) {
+        DisposableEffect(Unit) {
+            focusRequester.requestFocus()
+            onDispose { }
+        }
     }
 }

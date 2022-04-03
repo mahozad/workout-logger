@@ -28,7 +28,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_name)
+        val text = composeTestRule.activity.getString(R.string.user_fist_name)
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
@@ -56,7 +56,26 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.fist_name_label)
+        val text = composeTestRule.activity.getString(R.string.user_fist_name_label)
         composeTestRule.onNodeWithTag("input-first-name").assertTextContains(text)
+    }
+
+    @Test fun theLabelForLastNameInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_last_name)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theLastNameInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-last-name").assertIsDisplayed()
     }
 }
