@@ -15,9 +15,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WorkoutLoggerTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    MainScreen("Android")
                 }
             }
         }
@@ -25,7 +24,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun MainScreen(name: String) {
     Text(text = "Hello $name!")
 }
 
@@ -33,6 +32,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     WorkoutLoggerTheme {
-        Greeting("Android")
+        MainScreen("Android")
     }
 }
