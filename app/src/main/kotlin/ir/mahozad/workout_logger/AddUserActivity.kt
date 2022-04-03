@@ -21,9 +21,9 @@ class AddUserActivity : ComponentActivity() {
             }
         }
     }
+}
 
-    @Composable
-    fun AddUserScreen() {
-        Text(stringResource(R.string.user_information))
-    }
+@Composable
+fun AddUserScreen() {
+    Text(stringResource(R.string.user_information))
 }
