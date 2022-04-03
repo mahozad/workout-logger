@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">ثبت تمرین</string>
   <string name="new_workout">تمرین جدید</string>
+  <string name="start_workout">شروغ تمرین</string>
 </resources>
