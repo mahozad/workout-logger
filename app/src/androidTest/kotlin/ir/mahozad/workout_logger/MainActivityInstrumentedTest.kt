@@ -53,4 +53,20 @@ class MainActivityInstrumentedTest {
             Intents.release()
         }
     }
+
+    @Test fun clickingOnTheNewUserButtonShouldStartTheAddUserActivity() {
+        Intents.init()
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.new_user)
+        composeTestRule.onNodeWithText(text).performClick()
+        try {
+            intended(hasComponent(AddUserActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
+    }
 }

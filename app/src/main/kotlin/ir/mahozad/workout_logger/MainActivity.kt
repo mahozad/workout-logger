@@ -37,7 +37,9 @@ fun MainScreen() {
         }) {
             Text(stringResource(R.string.new_workout))
         }
-        Button(onClick = {}) {
+        Button(onClick = {
+            context.startActivity(Intent(context, AddUserActivity::class.java))
+        }) {
             Text(stringResource(R.string.new_user))
         }
     }
