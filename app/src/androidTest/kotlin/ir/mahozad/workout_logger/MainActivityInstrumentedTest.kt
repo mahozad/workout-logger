@@ -47,6 +47,10 @@ class MainActivityInstrumentedTest {
         }
         val text = composeTestRule.activity.getString(R.string.new_workout)
         composeTestRule.onNodeWithText(text).performClick()
-        intended(hasComponent(UserSelectionActivity::class.java.name))
+        try {
+            intended(hasComponent(UserSelectionActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
     }
 }
