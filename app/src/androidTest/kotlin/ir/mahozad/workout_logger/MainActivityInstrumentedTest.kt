@@ -3,6 +3,10 @@ package ir.mahozad.workout_logger
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import org.junit.Rule
@@ -22,5 +26,17 @@ class MainActivityInstrumentedTest {
         }
         val text = composeTestRule.activity.getString(R.string.new_workout)
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun clickingOnTheNewWorkoutSessionButtonShouldStartTheUserSelectionActivity() {
+        Intents.init()
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.new_workout)
+        composeTestRule.onNodeWithText(text).performClick()
+        intended(hasComponent(UserSelectionActivity::class.java.name))
     }
 }
