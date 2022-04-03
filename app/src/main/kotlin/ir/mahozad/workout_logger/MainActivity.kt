@@ -3,6 +3,7 @@ package ir.mahozad.workout_logger
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -25,7 +26,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(name: String) {
-    Text(text = "Hello $name!")
+    Button(onClick = {}) {
+        Text(name)
+    }
 }
 
 @Preview(showBackground = true)
