@@ -10,6 +10,9 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.WorkoutLogger">
     <activity
+        android:name=".AddUserActivity"
+        android:exported="false"/>
+    <activity
         android:name=".UserSelectionActivity"
         android:exported="false"/>
     <activity
