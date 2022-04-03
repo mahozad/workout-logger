@@ -4,4 +4,6 @@
   <string name="start_workout">شروغ تمرین</string>
   <string name="new_user">کاربر جدید</string>
   <string name="user_information">اطلاعات کاربر</string>
+  <string name="user_name">نام:</string>
+  <string name="fist_name_label">علی</string>
 </resources>
