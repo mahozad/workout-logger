@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -30,10 +31,15 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
-    Button(onClick = {
-        context.startActivity(Intent(context, UserSelectionActivity::class.java))
-    }) {
-        Text(stringResource(R.string.new_workout))
+    Column {
+        Button(onClick = {
+            context.startActivity(Intent(context, UserSelectionActivity::class.java))
+        }) {
+            Text(stringResource(R.string.new_workout))
+        }
+        Button(onClick = {}) {
+            Text(stringResource(R.string.new_user))
+        }
     }
 }
 

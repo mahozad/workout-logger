@@ -28,6 +28,16 @@ class MainActivityInstrumentedTest {
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
+    @Test fun theButtonForCreatingANewUserShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.new_user)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
     @Test fun clickingOnTheNewWorkoutSessionButtonShouldStartTheUserSelectionActivity() {
         Intents.init()
         composeTestRule.setContent {
