@@ -66,7 +66,7 @@ fun AddUserScreen() {
             stringResource(R.string.user_sex_label),
             tag = "input-gender"
         )
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
                 onClick = { isSuccessPromptVisible = true },
                 modifier = Modifier.testTag("button-create-user")
@@ -74,6 +74,7 @@ fun AddUserScreen() {
                 Text(stringResource(R.string.create_user))
             }
             if (isSuccessPromptVisible) {
+                Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     stringResource(R.string.user_create_success_message),
                     Modifier.testTag("success-prompt")
