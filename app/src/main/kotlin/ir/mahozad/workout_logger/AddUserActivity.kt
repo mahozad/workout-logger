@@ -60,6 +60,13 @@ fun AddUserScreen() {
             tag = "input-age",
             keyboardType = KeyboardType.Number
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        Input(
+            shouldRequestFocus = false,
+            stringResource(R.string.user_sex),
+            stringResource(R.string.user_sex_label),
+            tag = "input-gender"
+        )
     }
 }
 

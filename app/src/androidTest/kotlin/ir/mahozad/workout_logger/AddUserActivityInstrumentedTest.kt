@@ -117,4 +117,33 @@ class AddUserActivityInstrumentedTest {
         val text = composeTestRule.activity.getString(R.string.user_age_label)
         composeTestRule.onNodeWithTag("input-age").assertTextContains(text)
     }
+
+    @Test fun theLabelForGenderInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_sex)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theGenderInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-gender").assertIsDisplayed()
+    }
+
+    @Test fun theGenderInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_sex_label)
+        composeTestRule.onNodeWithTag("input-gender").assertTextContains(text)
+    }
 }
