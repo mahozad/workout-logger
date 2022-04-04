@@ -156,4 +156,43 @@ class AddUserActivityInstrumentedTest {
         val text = composeTestRule.activity.getString(R.string.create_user)
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
+
+    @Test fun initiallyTheSuccessMessageShouldNotBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
+    }
+
+    @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+        composeTestRule.onNodeWithTag("button-create-user").performClick()
+        composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
+    }
+
+    @Test fun theSuccessMessageShouldDisappearAfterAGivenAmountOfTime() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+        composeTestRule.onNodeWithTag("button-create-user").performClick()
+
+        composeTestRule.mainClock.advanceTimeBy(3_000)
+        composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
+    }
 }

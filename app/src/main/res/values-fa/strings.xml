@@ -14,4 +14,5 @@
   <string name="user_sex">جنس:</string>
   <string name="user_sex_label">مرد</string>
   <string name="create_user">ایجاد کاربر</string>
+  <string name="user_create_success_message">کاربر با موفقیت اضافه شد</string>
 </resources>

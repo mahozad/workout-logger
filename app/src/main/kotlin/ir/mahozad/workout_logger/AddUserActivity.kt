@@ -17,6 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import kotlinx.coroutines.delay
 
 class AddUserActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class AddUserActivity : ComponentActivity() {
 
 @Composable
 fun AddUserScreen() {
+    var isSuccessPromptVisible by remember { mutableStateOf(false) }
     Column {
         Text(stringResource(R.string.user_information))
         Spacer(modifier = Modifier.height(10.dp))
@@ -64,8 +66,23 @@ fun AddUserScreen() {
             stringResource(R.string.user_sex_label),
             tag = "input-gender"
         )
-        Button(onClick = {}, ){
-            Text(stringResource(R.string.create_user))
+        Row {
+            Button(
+                onClick = { isSuccessPromptVisible = true },
+                modifier = Modifier.testTag("button-create-user")
+            ) {
+                Text(stringResource(R.string.create_user))
+            }
+            if (isSuccessPromptVisible) {
+                Text(
+                    stringResource(R.string.user_create_success_message),
+                    Modifier.testTag("success-prompt")
+                )
+                LaunchedEffect(key1 = Unit) {
+                    delay(2000)
+                    isSuccessPromptVisible = false
+                }
+            }
         }
     }
 }

@@ -14,4 +14,5 @@
   <string name="user_sex">Sex:</string>
   <string name="user_sex_label">Man</string>
   <string name="create_user">Create User</string>
+  <string name="user_create_success_message">User added successfully</string>
 </resources>
