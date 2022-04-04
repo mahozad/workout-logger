@@ -5,10 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,6 +64,9 @@ fun AddUserScreen() {
             stringResource(R.string.user_sex_label),
             tag = "input-gender"
         )
+        Button(onClick = {}, ){
+            Text(stringResource(R.string.create_user))
+        }
     }
 }
 

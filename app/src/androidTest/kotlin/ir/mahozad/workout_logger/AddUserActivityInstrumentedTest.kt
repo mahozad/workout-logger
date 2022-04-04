@@ -146,4 +146,14 @@ class AddUserActivityInstrumentedTest {
         val text = composeTestRule.activity.getString(R.string.user_sex_label)
         composeTestRule.onNodeWithTag("input-gender").assertTextContains(text)
     }
+
+    @Test fun theButtonForCreatingTheUserShouldBeShown() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.create_user)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
 }

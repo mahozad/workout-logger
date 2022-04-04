@@ -13,4 +13,5 @@
   <!-- See https://en.wikipedia.org/wiki/Sex_and_gender_distinction -->
   <string name="user_sex">Sex:</string>
   <string name="user_sex_label">Man</string>
+  <string name="create_user">Create User</string>
 </resources>
