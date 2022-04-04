@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -15,6 +16,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
@@ -55,13 +57,20 @@ fun AddUserScreen() {
             shouldRequestFocus = false,
             stringResource(R.string.user_age),
             stringResource(R.string.user_age_label),
-            tag = "input-age"
+            tag = "input-age",
+            keyboardType = KeyboardType.Number
         )
     }
 }
 
 @Composable
-fun Input(shouldRequestFocus: Boolean, text: String, label: String, tag: String) {
+fun Input(
+    shouldRequestFocus: Boolean,
+    text: String,
+    label: String,
+    tag: String,
+    keyboardType: KeyboardType = KeyboardType.Text
+) {
     var value by remember { mutableStateOf("") }
     val focusRequester = FocusRequester()
 
@@ -72,6 +81,7 @@ fun Input(shouldRequestFocus: Boolean, text: String, label: String, tag: String)
             value = value,
             onValueChange = { value = it },
             label = { Text(label) },
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .testTag(tag)
