@@ -28,7 +28,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_fist_name)
+        val text = composeTestRule.activity.getString(R.string.user_first_name)
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
@@ -56,7 +56,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_fist_name_label)
+        val text = composeTestRule.activity.getString(R.string.user_first_name_label)
         composeTestRule.onNodeWithTag("input-first-name").assertTextContains(text)
     }
 

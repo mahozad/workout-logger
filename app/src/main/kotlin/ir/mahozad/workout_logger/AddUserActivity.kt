@@ -38,8 +38,8 @@ fun AddUserScreen() {
         Spacer(modifier = Modifier.height(10.dp))
         Input(
             shouldRequestFocus = true,
-            stringResource(R.string.user_fist_name),
-            stringResource(R.string.user_fist_name_label),
+            stringResource(R.string.user_first_name),
+            stringResource(R.string.user_first_name_label),
             tag = "input-first-name"
         )
         Spacer(modifier = Modifier.height(10.dp))
