@@ -50,6 +50,13 @@ fun AddUserScreen() {
             stringResource(R.string.user_last_name_label),
             tag = "input-last-name"
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        Input(
+            shouldRequestFocus = false,
+            stringResource(R.string.user_age),
+            stringResource(R.string.user_age_label),
+            tag = "input-age"
+        )
     }
 }
 

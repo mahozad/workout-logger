@@ -8,4 +8,6 @@
   <string name="user_fist_name_label">علی</string>
   <string name="user_last_name">نام خانوادگی:</string>
   <string name="user_last_name_label">قاسمی</string>
+  <string name="user_age">سن:</string>
+  <string name="user_age_label">۲۴</string>
 </resources>

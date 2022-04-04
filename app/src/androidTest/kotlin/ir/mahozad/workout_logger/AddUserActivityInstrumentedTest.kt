@@ -88,4 +88,33 @@ class AddUserActivityInstrumentedTest {
         val text = composeTestRule.activity.getString(R.string.user_last_name_label)
         composeTestRule.onNodeWithTag("input-last-name").assertTextContains(text)
     }
+
+    @Test fun theLabelForAgeInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_age)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theAgeInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-age").assertIsDisplayed()
+    }
+
+    @Test fun theAgeInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_age_label)
+        composeTestRule.onNodeWithTag("input-age").assertTextContains(text)
+    }
 }

@@ -8,4 +8,6 @@
   <string name="user_fist_name_label">John</string>
   <string name="user_last_name">Last Name:</string>
   <string name="user_last_name_label">Smith</string>
+  <string name="user_age">Age:</string>
+  <string name="user_age_label">24</string>
 </resources>
