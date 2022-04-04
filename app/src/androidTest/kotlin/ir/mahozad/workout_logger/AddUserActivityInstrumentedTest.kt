@@ -78,4 +78,14 @@ class AddUserActivityInstrumentedTest {
         }
         composeTestRule.onNodeWithTag("input-last-name").assertIsDisplayed()
     }
+
+    @Test fun theLastNameInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.user_last_name_label)
+        composeTestRule.onNodeWithTag("input-last-name").assertTextContains(text)
+    }
 }
