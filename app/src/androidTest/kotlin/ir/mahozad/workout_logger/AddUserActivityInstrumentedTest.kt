@@ -8,6 +8,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import ir.mahozad.AddUserViewModel
+import ir.mahozad.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
@@ -192,9 +193,7 @@ class AddUserActivityInstrumentedTest {
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() =
         runBlocking {
-            // val spyViewModel = spyk<AddUserViewModel>()
             coEvery { viewModel.addUser(any()) } returns true
-            // val spyViewModel = mockk<AddUserViewModel>()
             composeTestRule.setContent {
                 WorkoutLoggerTheme {
                     AddUserScreen(viewModel)
@@ -207,7 +206,7 @@ class AddUserActivityInstrumentedTest {
             composeTestRule.onNodeWithTag("button-create-user").performClick()
             composeTestRule.waitForIdle()
             composeTestRule.mainClock.advanceTimeBy(3_000)
-            coVerify(exactly = 1) { viewModel.addUser(any()) }
+            coVerify(exactly = 1) { viewModel.addUser(User("John", "Smith", "Man", "24")) }
         }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
