@@ -38,6 +38,11 @@ class AddUserActivity : ComponentActivity() {
 @Composable
 fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     var isSuccessPromptVisible by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
+    var firstName by rememberSaveable { mutableStateOf("") }
+    var lastName by rememberSaveable { mutableStateOf("") }
+    var gender by rememberSaveable { mutableStateOf("") }
+    var age by rememberSaveable { mutableStateOf("") }
     Column {
         Text(stringResource(R.string.user_information))
         Spacer(modifier = Modifier.height(10.dp))
@@ -45,14 +50,16 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
             shouldRequestFocus = true,
             stringResource(R.string.user_first_name),
             stringResource(R.string.user_first_name_label),
-            tag = "input-first-name"
+            tag = "input-first-name",
+            onTextChange = { firstName = it }
         )
         Spacer(modifier = Modifier.height(10.dp))
         Input(
             shouldRequestFocus = false,
             stringResource(R.string.user_last_name),
             stringResource(R.string.user_last_name_label),
-            tag = "input-last-name"
+            tag = "input-last-name",
+            onTextChange = { lastName = it }
         )
         Spacer(modifier = Modifier.height(10.dp))
         Input(
@@ -60,14 +67,16 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
             stringResource(R.string.user_age),
             stringResource(R.string.user_age_label),
             tag = "input-age",
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Number,
+            onTextChange = { age = it }
         )
         Spacer(modifier = Modifier.height(10.dp))
         Input(
             shouldRequestFocus = false,
             stringResource(R.string.user_sex),
             stringResource(R.string.user_sex_label),
-            tag = "input-gender"
+            tag = "input-gender",
+            onTextChange = { gender = it }
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
@@ -97,7 +106,8 @@ fun Input(
     text: String,
     label: String,
     tag: String,
-    keyboardType: KeyboardType = KeyboardType.Text
+    keyboardType: KeyboardType = KeyboardType.Text,
+    onTextChange: (String) -> Unit
 ) {
     var value by rememberSaveable { mutableStateOf("") }
     val focusRequester = FocusRequester()
@@ -107,7 +117,10 @@ fun Input(
         Spacer(modifier = Modifier.width(10.dp))
         TextField(
             value = value,
-            onValueChange = { value = it },
+            onValueChange = {
+                value = it
+                onTextChange(it)
+            },
             label = { Text(label) },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             modifier = Modifier
@@ -127,5 +140,5 @@ fun Input(
 @Preview(showBackground = true, widthDp = 350, heightDp = 100)
 @Composable
 fun InputPreview() {
-    Input(true, "Name:", "Anna", "")
+    Input(true, "Name:", "Anna", "", onTextChange = {})
 }
