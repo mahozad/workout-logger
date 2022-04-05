@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -96,7 +97,7 @@ fun Input(
     tag: String,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
-    var value by remember { mutableStateOf("") }
+    var value by rememberSaveable { mutableStateOf("") }
     val focusRequester = FocusRequester()
 
     Row(verticalAlignment = Alignment.CenterVertically) {

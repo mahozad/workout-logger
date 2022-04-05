@@ -1,9 +1,11 @@
 package ir.mahozad.workout_logger
 
+import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,6 +13,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class AddUserActivityInstrumentedTest {
     @get:Rule val composeTestRule = createAndroidComposeRule<AddUserActivity>()
+
+    // InstrumentationRegistry.getInstrumentation()
 
     @Test fun theHeaderTextShouldBeDisplayed() {
         composeTestRule.setContent {
@@ -58,6 +62,19 @@ class AddUserActivityInstrumentedTest {
         }
         val text = composeTestRule.activity.getString(R.string.user_first_name_label)
         composeTestRule.onNodeWithTag("input-first-name").assertTextContains(text)
+    }
+
+    @Ignore("The test fails (false positive) but the app works correctly. See https://stackoverflow.com/q/71742914")
+    @Test fun whenAConfigChangeHappensTheFirstNameInputShouldRetainItsValue() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.activity.requestedOrientation = SCREEN_ORIENTATION_LANDSCAPE
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag("input-first-name").assertTextEquals("John")
     }
 
     @Test fun theLabelForLastNameInputShouldBeDisplayed() {
