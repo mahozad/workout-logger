@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ir.mahozad.AddUserViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.delay
 
@@ -34,7 +36,7 @@ class AddUserActivity : ComponentActivity() {
 }
 
 @Composable
-fun AddUserScreen() {
+fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     var isSuccessPromptVisible by remember { mutableStateOf(false) }
     Column {
         Text(stringResource(R.string.user_information))
