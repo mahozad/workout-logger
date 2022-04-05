@@ -4,7 +4,12 @@ import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import ir.mahozad.AddUserViewModel
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -12,7 +17,9 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AddUserActivityInstrumentedTest {
+
     @get:Rule val composeTestRule = createAndroidComposeRule<AddUserActivity>()
+    val viewModel = mockk<AddUserViewModel>()
 
     // InstrumentationRegistry.getInstrumentation()
 
@@ -183,6 +190,26 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
     }
 
+    @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() =
+        runBlocking {
+            // val spyViewModel = spyk<AddUserViewModel>()
+            coEvery { viewModel.addUser(any()) } returns true
+            // val spyViewModel = mockk<AddUserViewModel>()
+            composeTestRule.setContent {
+                WorkoutLoggerTheme {
+                    AddUserScreen(viewModel)
+                }
+            }
+            composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+            composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+            composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+            composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+            composeTestRule.onNodeWithTag("button-create-user").performClick()
+            composeTestRule.waitForIdle()
+            composeTestRule.mainClock.advanceTimeBy(3_000)
+            coVerify(exactly = 1) { viewModel.addUser(any()) }
+        }
+
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
@@ -196,6 +223,23 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
     }
+
+    @Test fun whenTheInputsAreValidAndTheButtonForCreatingUserIsPressedAndViewModelReturnsErrorFlagShouldNotShowSuccessMessage(): Unit =
+        runBlocking {
+            coEvery { viewModel.addUser(any()) } returns false
+
+            composeTestRule.setContent {
+                WorkoutLoggerTheme {
+                    AddUserScreen(viewModel)
+                }
+            }
+            composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+            composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+            composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+            composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+            composeTestRule.onNodeWithTag("button-create-user").performClick()
+            composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
+        }
 
     @Test fun theSuccessMessageShouldDisappearAfterAGivenAmountOfTime() {
         composeTestRule.setContent {

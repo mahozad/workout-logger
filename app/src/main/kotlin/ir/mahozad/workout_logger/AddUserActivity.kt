@@ -17,10 +17,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ir.mahozad.AddUserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ir.mahozad.AddUserViewModel
+import ir.mahozad.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class AddUserActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +82,12 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
-                onClick = { isSuccessPromptVisible = true },
+                onClick = {
+                    coroutineScope.launch {
+                        val wasSuccessful = viewModel.addUser(User(firstName, lastName, gender, age))
+                        if (wasSuccessful) isSuccessPromptVisible = true
+                    }
+                },
                 modifier = Modifier.testTag("button-create-user")
             ) {
                 Text(stringResource(R.string.create_user))
