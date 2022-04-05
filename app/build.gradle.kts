@@ -64,6 +64,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("org.assertj:assertj-core:3.22.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
