@@ -6,6 +6,7 @@ plugins {
 }
 
 val composeVersion : String by rootProject.extra
+val roomVersion : String by rootProject.extra
 
 android {
     compileSdk = 32
@@ -20,6 +21,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
         }
     }
 
@@ -68,6 +78,9 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
     implementation("com.google.dagger:hilt-android:2.41")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
     kapt("com.google.dagger:hilt-android-compiler:2.41")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
@@ -76,6 +89,7 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:4.4.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("androidx.room:room-testing:$roomVersion")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
     androidTestImplementation("io.mockk:mockk-android:1.12.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

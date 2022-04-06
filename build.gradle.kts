@@ -1,5 +1,6 @@
 buildscript {
     val composeVersion by extra("1.1.1")
+    val roomVersion by extra("2.4.2")
     repositories {
         google()
         mavenCentral()
