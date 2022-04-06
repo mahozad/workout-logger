@@ -143,7 +143,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-age").assertTextContains(text)
     }
 
-    @Test fun theLabelForGenderInputShouldBeDisplayed() {
+    @Test fun theLabelForSexInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
@@ -153,23 +153,23 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
-    @Test fun theGenderInputShouldBeDisplayed() {
+    @Test fun theSexInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
             }
         }
-        composeTestRule.onNodeWithTag("input-gender").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("input-sex").assertIsDisplayed()
     }
 
-    @Test fun theGenderInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+    @Test fun theSexInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
             }
         }
         val text = composeTestRule.activity.getString(R.string.user_sex_label)
-        composeTestRule.onNodeWithTag("input-gender").assertTextContains(text)
+        composeTestRule.onNodeWithTag("input-sex").assertTextContains(text)
     }
 
     @Test fun theButtonForCreatingTheUserShouldBeShown() {
@@ -201,7 +201,7 @@ class AddUserActivityInstrumentedTest {
             }
             composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
             composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-            composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+            composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
             composeTestRule.onNodeWithTag("input-age").performTextInput("24")
             composeTestRule.onNodeWithTag("button-create-user").performClick()
             composeTestRule.waitForIdle()
@@ -218,7 +218,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-        composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
     }
@@ -234,7 +234,7 @@ class AddUserActivityInstrumentedTest {
             }
             composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
             composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-            composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+            composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
             composeTestRule.onNodeWithTag("input-age").performTextInput("24")
             composeTestRule.onNodeWithTag("button-create-user").performClick()
             composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
@@ -249,7 +249,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-        composeTestRule.onNodeWithTag("input-gender").performTextInput("Man")
+        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
         composeTestRule.onNodeWithTag("button-create-user").performClick()
 
         composeTestRule.mainClock.advanceTimeBy(3_000)

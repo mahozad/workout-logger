@@ -45,7 +45,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     val coroutineScope = rememberCoroutineScope()
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
-    var gender by rememberSaveable { mutableStateOf("") }
+    var sex by rememberSaveable { mutableStateOf("") }
     var age by rememberSaveable { mutableStateOf("") }
     Column {
         Text(stringResource(R.string.user_information))
@@ -79,14 +79,14 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
             shouldRequestFocus = false,
             stringResource(R.string.user_sex),
             stringResource(R.string.user_sex_label),
-            tag = "input-gender",
-            onTextChange = { gender = it }
+            tag = "input-sex",
+            onTextChange = { sex = it }
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        val wasSuccessful = viewModel.addUser(User(firstName, lastName, gender, age))
+                        val wasSuccessful = viewModel.addUser(User(firstName, lastName, sex, age))
                         if (wasSuccessful) isSuccessPromptVisible = true
                     }
                 },
