@@ -1,23 +1,38 @@
 package ir.mahozad.workout_logger
 
 import ir.mahozad.User
+import ir.mahozad.UserDao
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.doReturn as returns
+import org.mockito.kotlin.whenever as every
 
+@ExtendWith(MockitoExtension::class)
 class UserRepositoryTest {
+
+    @Mock lateinit var userDao: UserDao
+
     @Test fun `Initially getAllUsers should return empty flow`(): Unit = runBlocking {
-        val repository = UserRepository()
+        every(userDao.getAllUsers()) returns emptyFlow()
+        val repository = UserRepository(userDao)
         val users = repository.getAllUsers()
         assertThat(users.toList()).isEqualTo(emptyList<User>())
     }
 
     @Test fun `After adding a user getAllUsers should return it`(): Unit = runBlocking {
-        val repository = UserRepository()
+        val databaseUser = User(1, "John", "Smith", "Man", "24")
+        every(userDao.getAllUsers()) returns flowOf(databaseUser)
+        val repository = UserRepository(userDao)
         val user = User(0, "John", "Smith", "Man", "24")
         repository.addUser(user)
         val users = repository.getAllUsers()
-        assertThat(users.toList()).isEqualTo(listOf(user))
+        assertThat(users.toList()).isEqualTo(listOf(user.copy(id = 1)))
     }
 }
