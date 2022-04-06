@@ -1,9 +1,12 @@
 package ir.mahozad
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
-class AddUserViewModel: ViewModel() {
+@HiltViewModel
+class AddUserViewModel @Inject constructor(): ViewModel() {
 
     private var users = flowOf<User>()
 
