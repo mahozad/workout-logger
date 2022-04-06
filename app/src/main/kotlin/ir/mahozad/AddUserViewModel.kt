@@ -2,19 +2,18 @@ package ir.mahozad
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import ir.mahozad.workout_logger.UserRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class AddUserViewModel @Inject constructor(): ViewModel() {
-
-    private var users = flowOf<User>()
+class AddUserViewModel @Inject constructor(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     suspend fun addUser(user: User): Boolean {
-        val newList = users.toList() + user
-        users = flowOf(*newList.toTypedArray())
+        userRepository.addUser(user)
         return true
     }
 
-    fun getAllUsers() = users
+    fun getAllUsers() = userRepository.getAllUsers()
 }
