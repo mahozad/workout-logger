@@ -86,7 +86,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
             Button(
                 onClick = {
                     coroutineScope.launch {
-                        val wasSuccessful = viewModel.addUser(User(firstName, lastName, sex, age))
+                        val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
                         if (wasSuccessful) isSuccessPromptVisible = true
                     }
                 },

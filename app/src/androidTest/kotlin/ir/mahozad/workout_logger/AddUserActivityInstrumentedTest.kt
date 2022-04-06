@@ -206,7 +206,7 @@ class AddUserActivityInstrumentedTest {
             composeTestRule.onNodeWithTag("button-create-user").performClick()
             composeTestRule.waitForIdle()
             composeTestRule.mainClock.advanceTimeBy(3_000)
-            coVerify(exactly = 1) { viewModel.addUser(User("John", "Smith", "Man", "24")) }
+            coVerify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
         }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {

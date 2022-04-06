@@ -15,7 +15,7 @@ class UserRepositoryTest {
 
     @Test fun `After adding a user getAllUsers should return it`(): Unit = runBlocking {
         val repository = UserRepository()
-        val user = User("John", "Smith", "Man", "24")
+        val user = User(0, "John", "Smith", "Man", "24")
         repository.addUser(user)
         val users = repository.getAllUsers()
         assertThat(users.toList()).isEqualTo(listOf(user))

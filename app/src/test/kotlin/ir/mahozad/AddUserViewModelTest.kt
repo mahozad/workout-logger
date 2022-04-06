@@ -26,9 +26,9 @@ class AddUserViewModelTest {
     }
 
     @Test fun `Adding a new user should succeed`(): Unit = runBlocking {
-        val repositoryUser = User("John", "Smith", "Man", "24")
+        val repositoryUser = User(0, "John", "Smith", "Man", "24")
         every(userRepository.getAllUsers()) returns flowOf(repositoryUser)
-        val user = User("John", "Smith", "Man", "24")
+        val user = User(0, "John", "Smith", "Man", "24")
         val viewModel = AddUserViewModel(userRepository)
         val wasSuccessful = viewModel.addUser(user)
         val users = viewModel.getAllUsers()
