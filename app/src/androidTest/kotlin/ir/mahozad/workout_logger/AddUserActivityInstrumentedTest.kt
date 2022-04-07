@@ -192,6 +192,7 @@ class AddUserActivityInstrumentedTest {
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() =
         runBlocking {
             every { viewModel.addUser(any()) } returns true
+
             composeTestRule.setContent {
                 WorkoutLoggerTheme {
                     AddUserScreen(viewModel)
