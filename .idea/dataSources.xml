@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Workout Logger Database" uuid="ee78d441-01b4-4c48-9c2f-3641283a8f0d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Mahdi\AppData\Local\JetBrains\IntelliJIdea2021.3\android\databases\SERIAL_NUMBER_192_168_1_52_5555\ir.mahozad.workout_logger\internal\workout-database.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
