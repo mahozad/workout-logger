@@ -9,21 +9,17 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+const val DATABASE_NAME = "workout-database"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
     @Provides
-    fun provideUserDao(appDatabase: AppDatabase): UserDao {
-        return appDatabase.getUserDao()
-    }
+    fun provideUserDao(database: AppDatabase) = database.getUserDao()
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "workout-database"
-        ).build()
-    }
+    fun provideAppDatabase(@ApplicationContext context: Context) = Room
+        .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+        .build()
 }
