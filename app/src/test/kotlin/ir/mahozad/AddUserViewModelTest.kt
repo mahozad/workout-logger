@@ -2,6 +2,7 @@ package ir.mahozad
 
 import ir.mahozad.workout_logger.UserRepository
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -27,12 +28,12 @@ class AddUserViewModelTest {
 
     @Test fun `Adding a new user should succeed`(): Unit = runBlocking {
         val repositoryUser = User(0, "John", "Smith", "Man", "24")
-        every(userRepository.getAllUsers()) returns flowOf(repositoryUser)
+        every(userRepository.getAllUsers()) returns flowOf(listOf(repositoryUser))
         val user = User(0, "John", "Smith", "Man", "24")
         val viewModel = AddUserViewModel(userRepository)
         val wasSuccessful = viewModel.addUser(user)
         val users = viewModel.getAllUsers()
         assertThat(wasSuccessful).isTrue()
-        assertThat(users.toList()).isEqualTo(listOf(user))
+        assertThat(users.first()).isEqualTo(listOf(user))
     }
 }

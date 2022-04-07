@@ -11,5 +11,5 @@ interface UserDao {
     suspend fun insert(user: User)
 
     @Query("SELECT * FROM User")
-    fun getAllUsers(): Flow<User>
+    fun getAllUsers(): Flow<List<User>>
 }

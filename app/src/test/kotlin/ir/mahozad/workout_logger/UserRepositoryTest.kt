@@ -3,6 +3,7 @@ package ir.mahozad.workout_logger
 import ir.mahozad.User
 import ir.mahozad.UserDao
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -28,11 +29,11 @@ class UserRepositoryTest {
 
     @Test fun `After adding a user getAllUsers should return it`(): Unit = runBlocking {
         val databaseUser = User(1, "John", "Smith", "Man", "24")
-        every(userDao.getAllUsers()) returns flowOf(databaseUser)
+        every(userDao.getAllUsers()) returns flowOf(listOf(databaseUser))
         val repository = UserRepository(userDao)
         val user = User(0, "John", "Smith", "Man", "24")
         repository.addUser(user)
         val users = repository.getAllUsers()
-        assertThat(users.toList()).isEqualTo(listOf(user.copy(id = 1)))
+        assertThat(users.first()).isEqualTo(listOf(user.copy(id = 1)))
     }
 }
