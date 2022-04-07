@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-const val DATABASE_NAME = "workout-database"
+const val DATABASE_NAME = "workout-database.db"
 
 @Module
 @InstallIn(SingletonComponent::class)
