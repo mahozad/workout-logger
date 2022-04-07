@@ -23,7 +23,6 @@ import ir.mahozad.AddUserViewModel
 import ir.mahozad.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AddUserActivity : ComponentActivity() {
@@ -42,7 +41,6 @@ class AddUserActivity : ComponentActivity() {
 @Composable
 fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     var isSuccessPromptVisible by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
     var sex by rememberSaveable { mutableStateOf("") }
@@ -85,10 +83,8 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Button(
                 onClick = {
-                    coroutineScope.launch {
-                        val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
-                        if (wasSuccessful) isSuccessPromptVisible = true
-                    }
+                    val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
+                    if (wasSuccessful) isSuccessPromptVisible = true
                 },
                 modifier = Modifier.testTag("button-create-user")
             ) {

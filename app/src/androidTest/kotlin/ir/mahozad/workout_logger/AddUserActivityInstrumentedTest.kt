@@ -4,9 +4,7 @@ import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.*
 import ir.mahozad.AddUserViewModel
 import ir.mahozad.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
@@ -193,7 +191,7 @@ class AddUserActivityInstrumentedTest {
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() =
         runBlocking {
-            coEvery { viewModel.addUser(any()) } returns true
+            every { viewModel.addUser(any()) } returns true
             composeTestRule.setContent {
                 WorkoutLoggerTheme {
                     AddUserScreen(viewModel)
@@ -206,7 +204,7 @@ class AddUserActivityInstrumentedTest {
             composeTestRule.onNodeWithTag("button-create-user").performClick()
             composeTestRule.waitForIdle()
             composeTestRule.mainClock.advanceTimeBy(3_000)
-            coVerify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
+            verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
         }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
@@ -225,7 +223,7 @@ class AddUserActivityInstrumentedTest {
 
     @Test fun whenTheInputsAreValidAndTheButtonForCreatingUserIsPressedAndViewModelReturnsErrorFlagShouldNotShowSuccessMessage(): Unit =
         runBlocking {
-            coEvery { viewModel.addUser(any()) } returns false
+            every { viewModel.addUser(any()) } returns false
 
             composeTestRule.setContent {
                 WorkoutLoggerTheme {
