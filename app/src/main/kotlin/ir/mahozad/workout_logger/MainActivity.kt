@@ -42,6 +42,11 @@ fun MainScreen() {
         }) {
             Text(stringResource(R.string.new_user))
         }
+        Button(onClick = {
+            context.startActivity(Intent(context, UsersActivity::class.java))
+        }) {
+            Text(stringResource(R.string.all_users))
+        }
     }
 }
 

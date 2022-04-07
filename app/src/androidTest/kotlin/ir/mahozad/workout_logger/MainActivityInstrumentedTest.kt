@@ -38,6 +38,16 @@ class MainActivityInstrumentedTest {
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
+    @Test fun theButtonForShowingAllUsersShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.all_users)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
     @Test fun clickingOnTheNewWorkoutSessionButtonShouldStartTheUserSelectionActivity() {
         Intents.init()
         composeTestRule.setContent {
@@ -65,6 +75,22 @@ class MainActivityInstrumentedTest {
             val text = composeTestRule.activity.getString(R.string.new_user)
             composeTestRule.onNodeWithText(text).performClick()
             intended(hasComponent(AddUserActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
+    }
+
+    @Test fun clickingOnTheAllUsersButtonShouldStartTheAllUsersActivity() {
+        Intents.init()
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        try {
+            val text = composeTestRule.activity.getString(R.string.all_users)
+            composeTestRule.onNodeWithText(text).performClick()
+            intended(hasComponent(UsersActivity::class.java.name))
         } finally {
             Intents.release()
         }
