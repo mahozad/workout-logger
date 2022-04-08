@@ -33,4 +33,70 @@ class UserSelectionActivityTest {
             .assertAny(hasText("John"))
             .assertAny(hasText("Jane"))
     }
+
+    @Test fun initiallyTheButtonForStartingWorkoutShouldBeDisabled() {
+        val user1 = User(1, "John", "Smith", "Man", "24")
+        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("button").assertIsNotEnabled()
+    }
+
+    @Test fun initiallyNoUserShouldBeSelected() {
+        val user1 = User(1, "John", "Smith", "Man", "24")
+        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("radio-1").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("radio-2").assertIsNotSelected()
+    }
+
+    @Test fun clickingOnARadioButtonShouldSelectIt() {
+        val user1 = User(1, "John", "Smith", "Man", "24")
+        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("radio-1").performClick()
+        composeTestRule.onNodeWithTag("radio-1").assertIsSelected()
+    }
+
+    @Test fun afterARadioButtonIsSelectedTheButtonForStartingWorkoutShouldBeEnabled() {
+        val user1 = User(1, "John", "Smith", "Man", "24")
+        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("radio-1").performClick()
+        composeTestRule.onNodeWithTag("button").assertIsEnabled()
+    }
+
+    @Test fun onlyASingleItemShouldBeSelectedAtATime() {
+        val user1 = User(1, "John", "Smith", "Man", "24")
+        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("radio-1").performClick()
+        composeTestRule.onNodeWithTag("radio-2").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("radio-2").performClick()
+        composeTestRule.onNodeWithTag("radio-1").assertIsNotSelected()
+    }
 }

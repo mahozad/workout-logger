@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -35,12 +33,22 @@ class UserSelectionActivity : ComponentActivity() {
 @Composable
 fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
     val users by viewModel.getAllUsers().collectAsState(emptyList())
-    Column(Modifier.testTag("users")) {
-        users.forEach { user ->
-            Text(user.firstName)
+    var selected by rememberSaveable { mutableStateOf(-1) }
+    Column {
+        Column(Modifier.testTag("users")) {
+            users.forEach { user ->
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = selected == user.id,
+                        onClick = { selected = user.id },
+                        modifier = Modifier.testTag("radio-${user.id}")
+                    )
+                    Text(user.firstName)
+                }
+            }
         }
-    }
-    Button(onClick = {}) {
-        Text(stringResource(R.string.start_workout))
+        Button(onClick = {}, modifier = Modifier.testTag("button"), enabled = selected >= 0) {
+            Text(stringResource(R.string.start_workout))
+        }
     }
 }
