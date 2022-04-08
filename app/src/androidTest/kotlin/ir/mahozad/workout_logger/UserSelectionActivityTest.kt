@@ -2,6 +2,8 @@ package ir.mahozad.workout_logger
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
@@ -144,5 +146,27 @@ class UserSelectionActivityTest {
             }
         }
         composeTestRule.onNodeWithTag("users").assert(hasScrollAction())
+    }
+
+    @Test
+    fun afterAUserWasSelectedClickingOnTheButtonForStartingWorkoutShouldStartWorkoutActivity() {
+        Intents.init()
+        val users = listOf(
+            User(1, "John", "Smith", "Man", "24"),
+            User(2, "Jane", "Smith", "Woman", "25")
+        )
+        every { viewModel.getAllUsers() } returns flowOf(users)
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        try {
+            composeTestRule.onNodeWithTag("radio-1").performClick()
+            composeTestRule.onNodeWithTag("button").performClick()
+            Intents.intended(hasComponent(WorkoutActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
     }
 }

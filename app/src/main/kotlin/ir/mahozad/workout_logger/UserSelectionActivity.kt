@@ -1,5 +1,6 @@
 package ir.mahozad.workout_logger
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +39,7 @@ class UserSelectionActivity : ComponentActivity() {
 
 @Composable
 fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
+    val context = LocalContext.current
     val users by viewModel.getAllUsers().collectAsState(emptyList())
     var selected by rememberSaveable { mutableStateOf(-1) }
     Column {
@@ -59,7 +62,9 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
                 }
             }
         }
-        Button(onClick = {}, modifier = Modifier.testTag("button"), enabled = selected >= 0) {
+        Button(onClick = {
+            context.startActivity(Intent(context, WorkoutActivity::class.java))
+        }, modifier = Modifier.testTag("button"), enabled = selected >= 0) {
             Text(stringResource(R.string.start_workout))
         }
     }
