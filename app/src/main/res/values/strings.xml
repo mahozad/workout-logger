@@ -16,4 +16,5 @@
   <string name="create_user">Create User</string>
   <string name="user_create_success_message">User added successfully</string>
   <string name="all_users">All Users</string>
+  <string name="workout_image_description">The workout image</string>
 </resources>
