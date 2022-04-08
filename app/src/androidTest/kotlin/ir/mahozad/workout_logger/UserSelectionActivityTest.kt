@@ -99,4 +99,36 @@ class UserSelectionActivityTest {
         composeTestRule.onNodeWithTag("radio-2").performClick()
         composeTestRule.onNodeWithTag("radio-1").assertIsNotSelected()
     }
+
+    @Test fun ensureTheButtonForStartingWorkoutIsVisible() {
+        val users = listOf(
+            User(1, "John", "Smith", "Man", "24"),
+            User(2, "Jane", "Smith", "Woman", "25"),
+            User(3, "Anne", "Smith", "Woman", "26"),
+            User(4, "Anna", "Smith", "Woman", "27"),
+            User(5, "Lily", "Smith", "Woman", "28"),
+            User(6, "Ella", "Smith", "Woman", "29"),
+            User(7, "Joan", "Smith", "Woman", "30"),
+            User(8, "Lisa", "Smith", "Woman", "31"),
+            User(9, "Mary", "Smith", "Woman", "32"),
+            User(10, "Rose", "Smith", "Woman", "33"),
+            User(11, "Alan", "Smith", "Man", "34"),
+            User(12, "Carl", "Smith", "Man", "35"),
+            User(13, "Eric", "Smith", "Man", "36"),
+            User(14, "Evan", "Smith", "Man", "37"),
+            User(15, "Luke", "Smith", "Man", "38"),
+            User(16, "Matt", "Smith", "Man", "39"),
+            User(17, "Neil", "Smith", "Man", "40"),
+            User(18, "Sean", "Smith", "Man", "41"),
+            User(19, "Paul", "Smith", "Man", "42"),
+            User(20, "Ryan", "Smith", "Man", "43")
+        )
+        every { viewModel.getAllUsers() } returns flowOf(users)
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("button").assertIsDisplayed()
+    }
 }

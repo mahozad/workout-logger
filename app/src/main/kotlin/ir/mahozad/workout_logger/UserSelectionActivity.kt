@@ -35,7 +35,10 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
     val users by viewModel.getAllUsers().collectAsState(emptyList())
     var selected by rememberSaveable { mutableStateOf(-1) }
     Column {
-        Column(Modifier.testTag("users")) {
+        Column(Modifier
+                   .testTag("users")
+                   .weight(1f, fill = true)
+        ) {
             users.forEach { user ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(
