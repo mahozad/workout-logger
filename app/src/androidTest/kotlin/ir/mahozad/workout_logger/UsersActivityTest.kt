@@ -33,4 +33,18 @@ class UsersActivityTest {
             .assertAny(hasText("John"))
             .assertAny(hasText("Jane"))
     }
+
+    @Test fun theUsersListShouldBeScrollable() {
+        val users = listOf(
+            User(1, "John", "Smith", "Man", "24"),
+            User(2, "Jane", "Smith", "Woman", "25")
+        )
+        every { viewModel.getAllUsers() } returns flowOf(users)
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UsersScreen(viewModel)
+            }
+        }
+        composeTestRule.onNodeWithTag("users").assert(hasScrollAction())
+    }
 }

@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -33,7 +35,11 @@ class UsersActivity : ComponentActivity() {
 @Composable
 fun UsersScreen(viewModel: UsersViewModel = viewModel()) {
     val users by viewModel.getAllUsers().collectAsState(emptyList())
-    Column(Modifier.testTag("users")) {
+    Column(
+        Modifier
+            .testTag("users")
+            .verticalScroll(rememberScrollState())
+    ) {
         users.forEach { user ->
             Text(user.firstName)
         }
