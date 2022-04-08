@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,9 +37,11 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
     val users by viewModel.getAllUsers().collectAsState(emptyList())
     var selected by rememberSaveable { mutableStateOf(-1) }
     Column {
-        Column(Modifier
-                   .testTag("users")
-                   .weight(1f, fill = true)
+        Column(
+            Modifier
+                .testTag("users")
+                .weight(1f, fill = true)
+                .verticalScroll(rememberScrollState())
         ) {
             users.forEach { user ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
