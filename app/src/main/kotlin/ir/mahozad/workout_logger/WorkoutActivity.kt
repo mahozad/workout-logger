@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
@@ -73,7 +74,14 @@ fun WorkoutScreen() {
             stringResource(R.string.pushup_description),
             modifier = Modifier.testTag("description")
         )
-
+        Input(
+            shouldRequestFocus = false,
+            label = stringResource(R.string.total_pushups),
+            placeholder = stringResource(R.string.total_pushups_placeholder),
+            keyboardType = KeyboardType.Number,
+            tag = "input-total",
+            onTextChange = {}
+        )
         Button(onClick = {}, modifier = Modifier.testTag("finish"), content = {
             Text(stringResource(R.string.finish))
         })

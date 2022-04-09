@@ -48,4 +48,33 @@ class WorkoutActivityTest {
         }
         composeTestRule.onNodeWithTag("finish").assertIsDisplayed()
     }
+
+    @Test fun theLabelForTotalInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.total_pushups)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theTotalInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-total").assertIsDisplayed()
+    }
+
+    @Test fun theTotalInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.total_pushups_placeholder)
+        composeTestRule.onNodeWithTag("input-total").assertTextContains(text)
+    }
 }

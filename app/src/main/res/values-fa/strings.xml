@@ -19,4 +19,6 @@
   <string name="workout_image_description">تصویر تمرین</string>
   <string name="pushup_description">این تمرین شنا است.</string>
   <string name="finish">پایان</string>
+  <string name="total_pushups">تعداد کل شنا:</string>
+  <string name="total_pushups_placeholder">۲۰</string>
 </resources>
