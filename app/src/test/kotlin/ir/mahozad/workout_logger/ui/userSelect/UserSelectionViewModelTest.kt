@@ -3,7 +3,7 @@ package ir.mahozad.workout_logger.ui.userSelect
 import ir.mahozad.workout_logger.data.repository.UserRepository
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -17,7 +17,7 @@ class UserSelectionViewModelTest {
 
     @Mock lateinit var userRepository: UserRepository
 
-    @Test fun `Initially, getAllUsers should be empty`(): Unit = runBlocking {
+    @Test fun `Initially, getAllUsers should be empty`() = runTest {
         every(userRepository.getAllUsers()) returns emptyFlow()
         val viewModel = UserSelectionViewModel(userRepository)
         val users = viewModel.getAllUsers()

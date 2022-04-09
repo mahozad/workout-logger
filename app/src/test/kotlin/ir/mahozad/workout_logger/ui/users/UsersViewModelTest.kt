@@ -4,7 +4,8 @@ import ir.mahozad.workout_logger.data.repository.UserRepository
 import ir.mahozad.workout_logger.ui.addUser.AddUserViewModel
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -18,9 +19,10 @@ class UsersViewModelTest {
 
     @Mock lateinit var userRepository: UserRepository
 
-    @Test fun `Initially, getAllUsers should be empty`(): Unit = runBlocking {
+    @Test fun `Initially, getAllUsers should be empty`() = runTest {
+        val dispatcher = UnconfinedTestDispatcher(testScheduler)
+        val viewModel = AddUserViewModel(userRepository, dispatcher)
         every(userRepository.getAllUsers()) returns emptyFlow()
-        val viewModel = AddUserViewModel(userRepository)
         val users = viewModel.getAllUsers()
         assertThat(users.toList()).isEmpty()
     }

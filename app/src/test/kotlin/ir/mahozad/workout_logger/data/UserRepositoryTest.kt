@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,14 +21,14 @@ class UserRepositoryTest {
 
     @Mock lateinit var userDao: UserDao
 
-    @Test fun `Initially getAllUsers should return empty flow`(): Unit = runBlocking {
+    @Test fun `Initially getAllUsers should return empty flow`() = runTest {
         every(userDao.getAllUsers()) returns emptyFlow()
         val repository = UserRepository(userDao)
         val users = repository.getAllUsers()
         assertThat(users.toList()).isEqualTo(emptyList<User>())
     }
 
-    @Test fun `After adding a user getAllUsers should return it`(): Unit = runBlocking {
+    @Test fun `After adding a user getAllUsers should return it`() = runTest {
         val databaseUser = User(1, "John", "Smith", "Man", "24")
         every(userDao.getAllUsers()) returns flowOf(listOf(databaseUser))
         val repository = UserRepository(userDao)
