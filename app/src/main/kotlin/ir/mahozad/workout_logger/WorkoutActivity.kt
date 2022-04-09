@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -72,5 +73,9 @@ fun WorkoutScreen() {
             stringResource(R.string.pushup_description),
             modifier = Modifier.testTag("description")
         )
+
+        Button(onClick = {}, modifier = Modifier.testTag("finish"), content = {
+            Text(stringResource(R.string.finish))
+        })
     }
 }

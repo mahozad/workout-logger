@@ -18,4 +18,5 @@
   <string name="all_users">کاربران</string>
   <string name="workout_image_description">تصویر تمرین</string>
   <string name="pushup_description">این تمرین شنا است.</string>
+  <string name="finish">پایان</string>
 </resources>

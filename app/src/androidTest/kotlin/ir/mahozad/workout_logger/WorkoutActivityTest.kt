@@ -31,7 +31,6 @@ class WorkoutActivityTest {
         composeTestRule.onNodeWithTag("image-attribution").assertIsDisplayed()
     }
 
-
     @Test fun theWorkoutDescriptionShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
@@ -39,5 +38,14 @@ class WorkoutActivityTest {
             }
         }
         composeTestRule.onNodeWithTag("description").assertIsDisplayed()
+    }
+
+    @Test fun theFinishButtonShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("finish").assertIsDisplayed()
     }
 }
