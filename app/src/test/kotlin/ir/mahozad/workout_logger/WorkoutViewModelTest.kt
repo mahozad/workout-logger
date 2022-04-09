@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyBlocking
 
 @ExtendWith(MockitoExtension::class)
 class WorkoutViewModelTest {
@@ -17,6 +17,8 @@ class WorkoutViewModelTest {
         val viewModel = WorkoutViewModel(workoutRepository)
         val workout = Workout(0, 23, 19)
         viewModel.addWorkout(workout.total, workout.correct)
-        verify(workoutRepository).addWorkout(workout)
+        verifyBlocking(workoutRepository) {
+            addWorkout(workout)
+        }
     }
 }
