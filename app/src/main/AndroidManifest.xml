@@ -11,19 +11,19 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.WorkoutLogger">
     <activity
-        android:name=".AddUserActivity"
+        android:name=".ui.addUser.AddUserActivity"
         android:exported="false"/>
     <activity
-        android:name=".UsersActivity"
+        android:name=".ui.users.UsersActivity"
         android:exported="false"/>
     <activity
-        android:name=".UserSelectionActivity"
+        android:name=".ui.userSelect.UserSelectionActivity"
         android:exported="false"/>
     <activity
-        android:name=".WorkoutActivity"
+        android:name=".ui.workout.WorkoutActivity"
         android:exported="false"/>
     <activity
-        android:name=".MainActivity"
+        android:name=".ui.main.MainActivity"
         android:exported="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.WorkoutLogger.NoActionBar">
