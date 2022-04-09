@@ -21,4 +21,6 @@
   <string name="finish">Finish</string>
   <string name="total_pushups">Total pushups:</string>
   <string name="total_pushups_placeholder">20</string>
+  <string name="correct_pushups">Correct repetitions:</string>
+  <string name="correct_pushups_placeholder">18</string>
 </resources>

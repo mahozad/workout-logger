@@ -77,4 +77,33 @@ class WorkoutActivityTest {
         val text = composeTestRule.activity.getString(R.string.total_pushups_placeholder)
         composeTestRule.onNodeWithTag("input-total").assertTextContains(text)
     }
+
+    @Test fun theLabelForCorrectRepetitionsInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.correct_pushups)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theCorrectRepetitionsInputShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("input-correct").assertIsDisplayed()
+    }
+
+    @Test fun theCorrectRepetitionsInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.correct_pushups_placeholder)
+        composeTestRule.onNodeWithTag("input-correct").assertTextContains(text)
+    }
 }

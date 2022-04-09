@@ -21,4 +21,6 @@
   <string name="finish">پایان</string>
   <string name="total_pushups">تعداد کل شنا:</string>
   <string name="total_pushups_placeholder">۲۰</string>
+  <string name="correct_pushups">تعداد صحیح شنا:</string>
+  <string name="correct_pushups_placeholder">۱۸</string>
 </resources>

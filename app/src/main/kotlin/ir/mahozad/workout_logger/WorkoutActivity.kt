@@ -82,6 +82,14 @@ fun WorkoutScreen() {
             tag = "input-total",
             onTextChange = {}
         )
+        Input(
+            shouldRequestFocus = false,
+            label = stringResource(R.string.correct_pushups),
+            placeholder = stringResource(R.string.correct_pushups_placeholder),
+            keyboardType = KeyboardType.Number,
+            tag = "input-correct",
+            onTextChange = {}
+        )
         Button(onClick = {}, modifier = Modifier.testTag("finish"), content = {
             Text(stringResource(R.string.finish))
         })
