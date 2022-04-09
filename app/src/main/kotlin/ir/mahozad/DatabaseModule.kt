@@ -14,8 +14,12 @@ const val DATABASE_NAME = "workout-database.db"
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
+
     @Provides
     fun provideUserDao(database: AppDatabase) = database.getUserDao()
+
+    @Provides
+    fun provideWorkoutDao(database: AppDatabase) = database.getWorkoutDao()
 
     @Provides
     @Singleton
