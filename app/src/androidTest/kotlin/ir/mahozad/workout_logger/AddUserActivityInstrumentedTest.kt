@@ -60,7 +60,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-first-name").assertIsFocused()
     }
 
-    @Test fun theFirstNameInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+    @Test fun theFirstNameInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
@@ -102,7 +102,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-last-name").assertIsDisplayed()
     }
 
-    @Test fun theLastNameInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+    @Test fun theLastNameInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
@@ -131,7 +131,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-age").assertIsDisplayed()
     }
 
-    @Test fun theAgeInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+    @Test fun theAgeInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
@@ -160,7 +160,7 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("input-sex").assertIsDisplayed()
     }
 
-    @Test fun theSexInputShouldInitiallyBeEmptyAndHaveTheProperLabel() {
+    @Test fun theSexInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 AddUserScreen()
