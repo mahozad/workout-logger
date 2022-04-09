@@ -30,4 +30,14 @@ class WorkoutActivityTest {
         }
         composeTestRule.onNodeWithTag("image-attribution").assertIsDisplayed()
     }
+
+
+    @Test fun theWorkoutDescriptionShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("description").assertIsDisplayed()
+    }
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -65,6 +66,11 @@ fun WorkoutScreen() {
                     .getStringAnnotations(tag = "link", start = offset, end = offset)
                     .firstOrNull()
                     ?.let { uriHandler.openUri(it.item) }
-            })
+            }
+        )
+        Text(
+            stringResource(R.string.pushup_description),
+            modifier = Modifier.testTag("description")
+        )
     }
 }

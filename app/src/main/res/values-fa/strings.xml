@@ -17,4 +17,5 @@
   <string name="user_create_success_message">کاربر با موفقیت اضافه شد</string>
   <string name="all_users">کاربران</string>
   <string name="workout_image_description">تصویر تمرین</string>
+  <string name="pushup_description">این تمرین شنا است.</string>
 </resources>
