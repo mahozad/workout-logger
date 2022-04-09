@@ -12,6 +12,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
@@ -22,6 +26,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 
@@ -40,8 +45,10 @@ class WorkoutActivity : ComponentActivity() {
 }
 
 @Composable
-fun WorkoutScreen() {
+fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel()) {
     val uriHandler = LocalUriHandler.current
+    var total by rememberSaveable { mutableStateOf(0) }
+    var correct by rememberSaveable { mutableStateOf(0) }
     Column {
         Image(
             painterResource(R.drawable.pushup),
@@ -80,7 +87,7 @@ fun WorkoutScreen() {
             placeholder = stringResource(R.string.total_pushups_placeholder),
             keyboardType = KeyboardType.Number,
             tag = "input-total",
-            onTextChange = {}
+            onTextChange = { total = it.toInt() }
         )
         Input(
             shouldRequestFocus = false,
@@ -88,9 +95,11 @@ fun WorkoutScreen() {
             placeholder = stringResource(R.string.correct_pushups_placeholder),
             keyboardType = KeyboardType.Number,
             tag = "input-correct",
-            onTextChange = {}
+            onTextChange = { correct = it.toInt() }
         )
-        Button(onClick = {}, modifier = Modifier.testTag("finish"), content = {
+        Button(onClick = {
+            viewModel.addWorkout(total, correct)
+        }, modifier = Modifier.testTag("finish"), content = {
             Text(stringResource(R.string.finish))
         })
     }
