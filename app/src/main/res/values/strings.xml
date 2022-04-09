@@ -5,14 +5,14 @@
   <string name="new_user">New User</string>
   <string name="user_information">User Information</string>
   <string name="user_first_name">Name:</string>
-  <string name="user_first_name_label">John</string>
+  <string name="user_first_name_placeholder">John</string>
   <string name="user_last_name">Last Name:</string>
-  <string name="user_last_name_label">Smith</string>
+  <string name="user_last_name_placeholder">Smith</string>
   <string name="user_age">Age:</string>
-  <string name="user_age_label">24</string>
+  <string name="user_age_placeholder">24</string>
   <!-- See https://en.wikipedia.org/wiki/Sex_and_gender_distinction -->
   <string name="user_sex">Sex:</string>
-  <string name="user_sex_label">Man</string>
+  <string name="user_sex_placeholder">Man</string>
   <string name="create_user">Create User</string>
   <string name="user_create_success_message">User added successfully</string>
   <string name="all_users">All Users</string>

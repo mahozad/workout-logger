@@ -51,7 +51,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         Input(
             shouldRequestFocus = true,
             stringResource(R.string.user_first_name),
-            stringResource(R.string.user_first_name_label),
+            stringResource(R.string.user_first_name_placeholder),
             tag = "input-first-name",
             onTextChange = { firstName = it }
         )
@@ -59,7 +59,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         Input(
             shouldRequestFocus = false,
             stringResource(R.string.user_last_name),
-            stringResource(R.string.user_last_name_label),
+            stringResource(R.string.user_last_name_placeholder),
             tag = "input-last-name",
             onTextChange = { lastName = it }
         )
@@ -67,7 +67,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         Input(
             shouldRequestFocus = false,
             stringResource(R.string.user_age),
-            stringResource(R.string.user_age_label),
+            stringResource(R.string.user_age_placeholder),
             tag = "input-age",
             keyboardType = KeyboardType.Number,
             onTextChange = { age = it }
@@ -76,7 +76,7 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
         Input(
             shouldRequestFocus = false,
             stringResource(R.string.user_sex),
-            stringResource(R.string.user_sex_label),
+            stringResource(R.string.user_sex_placeholder),
             tag = "input-sex",
             onTextChange = { sex = it }
         )
@@ -108,8 +108,8 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
 @Composable
 fun Input(
     shouldRequestFocus: Boolean,
-    text: String,
     label: String,
+    placeholder: String,
     tag: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     onTextChange: (String) -> Unit
@@ -118,7 +118,7 @@ fun Input(
     val focusRequester = FocusRequester()
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text)
+        Text(label)
         Spacer(modifier = Modifier.width(10.dp))
         TextField(
             value = value,
@@ -126,7 +126,7 @@ fun Input(
                 value = it
                 onTextChange(it)
             },
-            label = { Text(label) },
+            label = { Text(placeholder) },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             modifier = Modifier
                 .focusRequester(focusRequester)

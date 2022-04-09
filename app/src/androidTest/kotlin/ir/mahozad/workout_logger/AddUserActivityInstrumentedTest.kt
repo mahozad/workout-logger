@@ -66,7 +66,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_first_name_label)
+        val text = composeTestRule.activity.getString(R.string.user_first_name_placeholder)
         composeTestRule.onNodeWithTag("input-first-name").assertTextContains(text)
     }
 
@@ -108,7 +108,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_last_name_label)
+        val text = composeTestRule.activity.getString(R.string.user_last_name_placeholder)
         composeTestRule.onNodeWithTag("input-last-name").assertTextContains(text)
     }
 
@@ -137,7 +137,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_age_label)
+        val text = composeTestRule.activity.getString(R.string.user_age_placeholder)
         composeTestRule.onNodeWithTag("input-age").assertTextContains(text)
     }
 
@@ -166,7 +166,7 @@ class AddUserActivityInstrumentedTest {
                 AddUserScreen()
             }
         }
-        val text = composeTestRule.activity.getString(R.string.user_sex_label)
+        val text = composeTestRule.activity.getString(R.string.user_sex_placeholder)
         composeTestRule.onNodeWithTag("input-sex").assertTextContains(text)
     }
 
