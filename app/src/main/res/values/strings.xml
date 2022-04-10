@@ -17,7 +17,7 @@
   <string name="user_create_success_message">User added successfully</string>
   <string name="all_users">All Users</string>
   <string name="workout_image_description">The workout image</string>
-  <string name="pushup_description">This is push-up exercise</string>
+  <string name="pushup_description">Description of the exercise…</string>
   <string name="finish">Finish</string>
   <string name="total_pushups">Total pushups:</string>
   <string name="total_pushups_placeholder">20</string>

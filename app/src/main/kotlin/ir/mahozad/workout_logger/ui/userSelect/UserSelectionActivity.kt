@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -50,10 +48,14 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
             Modifier
                 .testTag("users")
                 .weight(1f, fill = true)
+                .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
             users.forEach { user ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    Modifier.fillMaxWidth().clickable { selected = user.id },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     RadioButton(
                         selected = selected == user.id,
                         onClick = { selected = user.id },
@@ -65,9 +67,11 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
                 }
             }
         }
-        Button(onClick = {
-            context.startActivity(Intent(context, WorkoutActivity::class.java))
-        }, modifier = Modifier.testTag("button"), enabled = selected >= 0) {
+        Button(
+            onClick = { context.startActivity(Intent(context, WorkoutActivity::class.java)) },
+            modifier = Modifier.testTag("button").align(Alignment.CenterHorizontally),
+            enabled = selected >= 0
+        ) {
             Text(stringResource(R.string.start_workout))
         }
     }

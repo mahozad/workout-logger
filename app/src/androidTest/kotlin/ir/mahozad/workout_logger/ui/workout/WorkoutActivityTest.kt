@@ -7,7 +7,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import ir.mahozad.workout_logger.R
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
-import ir.mahozad.workout_logger.ui.users.UsersActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +14,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class WorkoutActivityTest {
 
-    @get:Rule val composeTestRule = createAndroidComposeRule<UsersActivity>()
+    @get:Rule val composeTestRule = createAndroidComposeRule<WorkoutActivity>()
     val viewModel = mockk<WorkoutViewModel>(relaxed = true)
 
     @Test fun theWorkoutImageShouldBeDisplayed() {
@@ -122,5 +121,14 @@ class WorkoutActivityTest {
         composeTestRule.onNodeWithTag("input-correct").performTextInput("19")
         composeTestRule.onNodeWithTag("finish").performClick()
         verify(exactly = 1) { viewModel.addWorkout(23, 19) }
+    }
+
+    @Test fun theWorkoutScreenShouldBeScrollable() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("screen").assert(hasScrollAction())
     }
 }

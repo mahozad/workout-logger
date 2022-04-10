@@ -46,60 +46,65 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     var sex by rememberSaveable { mutableStateOf("") }
     var age by rememberSaveable { mutableStateOf("") }
     Column {
-        Text(stringResource(R.string.user_information))
-        Spacer(modifier = Modifier.height(10.dp))
-        Input(
-            shouldRequestFocus = true,
-            stringResource(R.string.user_first_name),
-            stringResource(R.string.user_first_name_placeholder),
-            tag = "input-first-name",
-            onTextChange = { firstName = it }
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Input(
-            shouldRequestFocus = false,
-            stringResource(R.string.user_last_name),
-            stringResource(R.string.user_last_name_placeholder),
-            tag = "input-last-name",
-            onTextChange = { lastName = it }
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Input(
-            shouldRequestFocus = false,
-            stringResource(R.string.user_age),
-            stringResource(R.string.user_age_placeholder),
-            tag = "input-age",
-            keyboardType = KeyboardType.Number,
-            onTextChange = { age = it }
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Input(
-            shouldRequestFocus = false,
-            stringResource(R.string.user_sex),
-            stringResource(R.string.user_sex_placeholder),
-            tag = "input-sex",
-            onTextChange = { sex = it }
-        )
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Button(
-                onClick = {
-                    val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
-                    if (wasSuccessful) isSuccessPromptVisible = true
-                },
-                modifier = Modifier.testTag("button-create-user")
-            ) {
-                Text(stringResource(R.string.create_user))
-            }
-            if (isSuccessPromptVisible) {
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(
-                    stringResource(R.string.user_create_success_message),
-                    Modifier.testTag("success-prompt")
-                )
-                LaunchedEffect(key1 = Unit) {
-                    delay(2000)
-                    isSuccessPromptVisible = false
-                }
+        Text(stringResource(R.string.user_information), Modifier.align(Alignment.CenterHorizontally))
+        Column(Modifier.weight(1f, fill = true).fillMaxSize().padding(8.dp)) {
+            Spacer(modifier = Modifier.height(10.dp))
+            Input(
+                shouldRequestFocus = true,
+                stringResource(R.string.user_first_name),
+                stringResource(R.string.user_first_name_placeholder),
+                tag = "input-first-name",
+                onTextChange = { firstName = it }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Input(
+                shouldRequestFocus = false,
+                stringResource(R.string.user_last_name),
+                stringResource(R.string.user_last_name_placeholder),
+                tag = "input-last-name",
+                onTextChange = { lastName = it }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Input(
+                shouldRequestFocus = false,
+                stringResource(R.string.user_age),
+                stringResource(R.string.user_age_placeholder),
+                tag = "input-age",
+                keyboardType = KeyboardType.Number,
+                onTextChange = { age = it }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Input(
+                shouldRequestFocus = false,
+                stringResource(R.string.user_sex),
+                stringResource(R.string.user_sex_placeholder),
+                tag = "input-sex",
+                onTextChange = { sex = it }
+            )
+        }
+        Button(
+            onClick = {
+                val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
+                if (wasSuccessful) isSuccessPromptVisible = true
+            },
+            modifier = Modifier
+                .testTag("button-create-user")
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(stringResource(R.string.create_user))
+        }
+        if (isSuccessPromptVisible) {
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                stringResource(R.string.user_create_success_message),
+                Modifier
+                    .testTag("success-prompt")
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+            )
+            LaunchedEffect(key1 = Unit) {
+                delay(2000)
+                isSuccessPromptVisible = false
             }
         }
     }
@@ -117,7 +122,11 @@ fun Input(
     var value by rememberSaveable { mutableStateOf("") }
     val focusRequester = FocusRequester()
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth()
+    ) {
         Text(label)
         Spacer(modifier = Modifier.width(10.dp))
         TextField(
@@ -128,6 +137,7 @@ fun Input(
             },
             label = { Text(placeholder) },
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            singleLine = true,
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .testTag(tag)
