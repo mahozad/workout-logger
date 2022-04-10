@@ -13,6 +13,7 @@ import ir.mahozad.workout_logger.ui.addUser.AddUserActivity
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import ir.mahozad.workout_logger.ui.userSelect.UserSelectionActivity
 import ir.mahozad.workout_logger.ui.users.UsersActivity
+import ir.mahozad.workout_logger.ui.workouts.WorkoutsReportActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,6 +50,16 @@ class MainActivityTest {
             }
         }
         val text = composeTestRule.activity.getString(R.string.all_users)
+        composeTestRule.onNodeWithText(text).assertIsDisplayed()
+    }
+
+    @Test fun theButtonForShowingWorkoutsReportShouldBeDisplayed() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        val text = composeTestRule.activity.getString(R.string.workouts_report)
         composeTestRule.onNodeWithText(text).assertIsDisplayed()
     }
 
@@ -95,6 +106,22 @@ class MainActivityTest {
             val text = composeTestRule.activity.getString(R.string.all_users)
             composeTestRule.onNodeWithText(text).performClick()
             intended(hasComponent(UsersActivity::class.java.name))
+        } finally {
+            Intents.release()
+        }
+    }
+
+    @Test fun clickingOnTheWorkoutsReportButtonShouldStartTheWorkoutsReportActivity() {
+        Intents.init()
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                MainScreen()
+            }
+        }
+        try {
+            val text = composeTestRule.activity.getString(R.string.workouts_report)
+            composeTestRule.onNodeWithText(text).performClick()
+            intended(hasComponent(WorkoutsReportActivity::class.java.name))
         } finally {
             Intents.release()
         }

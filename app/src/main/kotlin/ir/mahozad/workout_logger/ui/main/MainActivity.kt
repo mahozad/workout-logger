@@ -18,6 +18,7 @@ import ir.mahozad.workout_logger.ui.addUser.AddUserActivity
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import ir.mahozad.workout_logger.ui.userSelect.UserSelectionActivity
 import ir.mahozad.workout_logger.ui.users.UsersActivity
+import ir.mahozad.workout_logger.ui.workouts.WorkoutsReportActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,11 @@ fun MainScreen() {
             context.startActivity(Intent(context, UsersActivity::class.java))
         }) {
             Text(stringResource(R.string.all_users))
+        }
+        Button(onClick = {
+            context.startActivity(Intent(context, WorkoutsReportActivity::class.java))
+        }) {
+            Text(stringResource(R.string.workouts_report))
         }
     }
 }
