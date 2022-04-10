@@ -7,6 +7,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.data.dao.WorkoutDao
 import ir.mahozad.workout_logger.data.entity.Workout
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
@@ -30,6 +32,11 @@ class WorkoutDaoTest {
 
     @After fun tearDown() {
         database.close()
+    }
+
+    @Test fun whenDatabaseIsEmptyGetAllShouldReturnEmpty(): Unit = runBlocking {
+        val workouts = workoutDao.getAll().take(1)
+        assertThat(workouts.first()).isNullOrEmpty()
     }
 
     @Test fun whenDatabaseIsEmptyInsertingASingleWorkoutShouldSucceed(): Unit = runBlocking {
