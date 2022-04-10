@@ -10,7 +10,6 @@ import io.mockk.verify
 import ir.mahozad.workout_logger.R
 import ir.mahozad.workout_logger.data.entity.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
-import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -191,24 +190,22 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
     }
 
-    @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() =
-        runBlocking {
-            every { viewModel.addUser(any()) } returns true
-
-            composeTestRule.setContent {
-                WorkoutLoggerTheme {
-                    AddUserScreen(viewModel)
-                }
+    @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldCallViewModelWithCorrectValues() {
+        every { viewModel.addUser(any()) } returns true
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen(viewModel)
             }
-            composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-            composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-            composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
-            composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-            composeTestRule.onNodeWithTag("button-create-user").performClick()
-            composeTestRule.waitForIdle()
-            composeTestRule.mainClock.advanceTimeBy(3_000)
-            verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
         }
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
+        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("button-create-user").performClick()
+        composeTestRule.waitForIdle()
+        composeTestRule.mainClock.advanceTimeBy(3_000)
+        verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
+    }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
         composeTestRule.setContent {
@@ -224,22 +221,20 @@ class AddUserActivityInstrumentedTest {
         composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
     }
 
-    @Test fun whenTheInputsAreValidAndTheButtonForCreatingUserIsPressedAndViewModelReturnsErrorFlagShouldNotShowSuccessMessage(): Unit =
-        runBlocking {
-            every { viewModel.addUser(any()) } returns false
-
-            composeTestRule.setContent {
-                WorkoutLoggerTheme {
-                    AddUserScreen(viewModel)
-                }
+    @Test fun whenTheInputsAreValidAndTheButtonForCreatingUserIsPressedAndViewModelReturnsErrorFlagShouldNotShowSuccessMessage() {
+        every { viewModel.addUser(any()) } returns false
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen(viewModel)
             }
-            composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-            composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-            composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
-            composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-            composeTestRule.onNodeWithTag("button-create-user").performClick()
-            composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
         }
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
+        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
+        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("button-create-user").performClick()
+        composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
+    }
 
     @Test fun theSuccessMessageShouldDisappearAfterAGivenAmountOfTime() {
         composeTestRule.setContent {

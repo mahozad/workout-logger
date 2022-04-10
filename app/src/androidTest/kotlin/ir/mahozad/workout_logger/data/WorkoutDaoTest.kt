@@ -9,7 +9,7 @@ import ir.mahozad.workout_logger.data.dao.WorkoutDao
 import ir.mahozad.workout_logger.data.entity.Workout
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -34,18 +34,18 @@ class WorkoutDaoTest {
         database.close()
     }
 
-    @Test fun whenDatabaseIsEmptyGetAllShouldReturnEmpty(): Unit = runBlocking {
+    @Test fun whenDatabaseIsEmptyGetAllShouldReturnEmpty() = runTest {
         val workouts = workoutDao.getAll().take(1)
         assertThat(workouts.first()).isNullOrEmpty()
     }
 
-    @Test fun whenDatabaseIsEmptyInsertingASingleWorkoutShouldSucceed(): Unit = runBlocking {
+    @Test fun whenDatabaseIsEmptyInsertingASingleWorkoutShouldSucceed() = runTest {
         val workout = Workout(0, 23, 19)
         val workoutId = workoutDao.insert(workout)
         assertThat(workoutId).isEqualTo(1)
     }
 
-    @Test fun insertingTwoWorkoutsShouldSucceed(): Unit = runBlocking {
+    @Test fun insertingTwoWorkoutsShouldSucceed() = runTest {
         val workout1 = Workout(0, 23, 19)
         val workout2 = Workout(0, 20, 13)
         val workout1Id = workoutDao.insert(workout1)
@@ -54,7 +54,7 @@ class WorkoutDaoTest {
         assertThat(workout2Id).isEqualTo(2)
     }
 
-    @Test fun insertingAWorkoutWithExistingIdShouldFail(): Unit = runBlocking {
+    @Test fun insertingAWorkoutWithExistingIdShouldFail() = runTest {
         val existingWorkouts = listOf(
             Workout(0, 23, 19),
             Workout(0, 20, 13),

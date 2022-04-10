@@ -9,7 +9,7 @@ import ir.mahozad.workout_logger.data.dao.UserDao
 import ir.mahozad.workout_logger.data.entity.User
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -33,19 +33,19 @@ class UserDaoTest {
         database.close()
     }
 
-    @Test fun whenDatabaseIsEmptyGetAllUsersShouldReturnEmpty(): Unit = runBlocking {
+    @Test fun whenDatabaseIsEmptyGetAllUsersShouldReturnEmpty() = runTest {
         val users = userDao.getAllUsers().take(1)
         assertThat(users.first()).isNullOrEmpty()
     }
 
-    @Test fun whenDatabaseIsEmptyInsertingASingleUserShouldSucceed(): Unit = runBlocking {
+    @Test fun whenDatabaseIsEmptyInsertingASingleUserShouldSucceed() = runTest {
         val user = User(0, "John", "Smith", "Man", "24")
         userDao.insert(user)
         val users = userDao.getAllUsers().first()
         assertThat(users).isEqualTo(listOf(user.copy(id = 1)))
     }
 
-    @Test fun insertingTwoUsersShouldSucceed(): Unit = runBlocking {
+    @Test fun insertingTwoUsersShouldSucceed() = runTest {
         val user1 = User(0, "John", "Smith", "Man", "24")
         val user2 = User(0, "Jane", "Smith", "Woman", "25")
         userDao.insert(user1)
@@ -54,7 +54,7 @@ class UserDaoTest {
         assertThat(users).isEqualTo(listOf(user1.copy(id = 1), user2.copy(id = 2)))
     }
 
-    @Test fun insertingAUserEntityWithExistingIdShouldFail(): Unit = runBlocking {
+    @Test fun insertingAUserEntityWithExistingIdShouldFail() = runTest {
         val existingUsers = listOf(
             User(0, "A", "E", "Man", "24"),
             User(0, "B", "F", "Man", "24"),
