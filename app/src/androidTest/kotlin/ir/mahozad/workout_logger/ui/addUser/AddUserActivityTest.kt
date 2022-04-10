@@ -16,7 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class AddUserActivityInstrumentedTest {
+class AddUserActivityTest {
 
     @get:Rule val composeTestRule = createAndroidComposeRule<AddUserActivity>()
     val viewModel = mockk<AddUserViewModel>()
