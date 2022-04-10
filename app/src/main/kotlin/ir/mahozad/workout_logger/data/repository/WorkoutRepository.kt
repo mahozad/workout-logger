@@ -12,4 +12,6 @@ class WorkoutRepository @Inject constructor(
     suspend fun addWorkout(workout: Workout) = withContext(Dispatchers.IO) {
         workoutDao.insert(workout)
     }
+
+    fun getAllWorkouts() = workoutDao.getAll()
 }
