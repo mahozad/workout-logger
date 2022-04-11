@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,8 +43,9 @@ fun UsersScreen(viewModel: UsersViewModel = viewModel()) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        users.forEach { user ->
+        users.forEachIndexed() { index, user ->
             Text(user.firstName)
+            if (index < users.lastIndex) Divider(Modifier.testTag("divider"))
         }
     }
 }

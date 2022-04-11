@@ -51,7 +51,7 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            users.forEach { user ->
+            users.forEachIndexed { index, user ->
                 Row(
                     Modifier.fillMaxWidth().clickable { selected = user.id },
                     verticalAlignment = Alignment.CenterVertically
@@ -65,6 +65,7 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
                     Spacer(Modifier.width(8.dp))
                     Text(user.lastName)
                 }
+                if (index < users.lastIndex) Divider(Modifier.testTag("divider"))
             }
         }
         Button(

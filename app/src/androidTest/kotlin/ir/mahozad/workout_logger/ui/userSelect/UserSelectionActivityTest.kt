@@ -170,4 +170,18 @@ class UserSelectionActivityTest {
             Intents.release()
         }
     }
+
+    @Test fun thereShouldBeProperNumberOfDividersBetweenUsers_OneLessThanTotalNumberOfUsers() {
+        val users = listOf(
+            User(1, "John", "Smith", "Man", "24"),
+            User(2, "Jane", "Smith", "Woman", "25")
+        )
+        every { viewModel.getAllUsers() } returns flowOf(users)
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                UserSelectionScreen(viewModel)
+            }
+        }
+        composeTestRule.onAllNodesWithTag("divider").assertCountEquals(1)
+    }
 }

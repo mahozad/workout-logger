@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,8 +41,9 @@ fun WorkoutsScreen(viewModel: WorkoutsReportViewModel = viewModel()) {
             .testTag("workouts")
             .verticalScroll(rememberScrollState())
     ) {
-        workouts.forEach { workout ->
+        workouts.forEachIndexed { index, workout ->
             Text(workout.total.toString())
+            if (index < workouts.lastIndex) Divider(Modifier.testTag("divider"))
         }
     }
 }

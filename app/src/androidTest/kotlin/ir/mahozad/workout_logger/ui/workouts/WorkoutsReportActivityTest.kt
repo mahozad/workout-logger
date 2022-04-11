@@ -47,4 +47,18 @@ class WorkoutsReportActivityTest {
         }
         composeTestRule.onNodeWithTag("workouts").assert(hasScrollAction())
     }
+
+    @Test fun thereShouldBeProperNumberOfDividersBetweenReports_OneLessThanTotalNumberOfReports() {
+        val workouts = listOf(
+            Workout(1, 24,     19),
+            Workout(2, 20,     13)
+        )
+        every { viewModel.getAllWorkouts() } returns flowOf(workouts)
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                WorkoutsScreen(viewModel)
+            }
+        }
+        composeTestRule.onAllNodesWithTag("divider").assertCountEquals(1)
+    }
 }
