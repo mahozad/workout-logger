@@ -11,22 +11,22 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.WorkoutLogger">
     <activity
-        android:name=".ui.addUser.AddUserActivity"
+        android:name=".user.add.AddUserActivity"
         android:exported="false"/>
     <activity
-        android:name=".ui.users.UsersActivity"
+        android:name=".user.list.UsersActivity"
         android:exported="false"/>
     <activity
-        android:name=".ui.userSelect.UserSelectionActivity"
+        android:name=".user.select.UserSelectionActivity"
         android:exported="false"/>
     <activity
-        android:name=".ui.workout.WorkoutActivity"
+        android:name=".workout.WorkoutActivity"
         android:exported="false"/>
     <activity
-        android:name=".ui.workouts.WorkoutsReportActivity"
+        android:name=".workout.report.WorkoutsReportActivity"
         android:exported="false"/>
     <activity
-        android:name=".ui.main.MainActivity"
+        android:name=".home.MainActivity"
         android:exported="true"
         android:label="@string/app_name"
         android:theme="@style/Theme.WorkoutLogger.NoActionBar">
