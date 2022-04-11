@@ -3,7 +3,7 @@
           package="ir.mahozad.workout_logger">
 
   <application
-      android:name="ir.mahozad.WorkoutApplication"
+      android:name=".WorkoutApplication"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
