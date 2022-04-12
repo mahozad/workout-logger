@@ -26,4 +26,7 @@
   <string name="workouts_report">گزارش تمرین‌ها</string>
   <string name="workout_total">تعداد کل:</string>
   <string name="workout_correct">تعداد صحیح:</string>
+  <string name="sex_male">مذکر</string>
+  <string name="sex_female">مؤنث</string>
+  <string name="sex_other">سایر</string>
 </resources>

@@ -26,4 +26,7 @@
   <string name="workouts_report">Workouts Report</string>
   <string name="workout_total">Total:</string>
   <string name="workout_correct">Correct:</string>
+  <string name="sex_male">Male</string>
+  <string name="sex_female">Female</string>
+  <string name="sex_other">Other</string>
 </resources>

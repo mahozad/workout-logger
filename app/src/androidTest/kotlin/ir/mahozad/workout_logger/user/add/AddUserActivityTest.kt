@@ -8,6 +8,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import ir.mahozad.workout_logger.R
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import org.junit.Ignore
@@ -142,35 +143,6 @@ class AddUserActivityTest {
         composeTestRule.onNodeWithTag("input-age").assertTextContains(text)
     }
 
-    @Test fun theLabelForSexInputShouldBeDisplayed() {
-        composeTestRule.setContent {
-            WorkoutLoggerTheme {
-                AddUserScreen()
-            }
-        }
-        val text = composeTestRule.activity.getString(R.string.user_sex)
-        composeTestRule.onNodeWithText(text).assertIsDisplayed()
-    }
-
-    @Test fun theSexInputShouldBeDisplayed() {
-        composeTestRule.setContent {
-            WorkoutLoggerTheme {
-                AddUserScreen()
-            }
-        }
-        composeTestRule.onNodeWithTag("input-sex").assertIsDisplayed()
-    }
-
-    @Test fun theSexInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
-        composeTestRule.setContent {
-            WorkoutLoggerTheme {
-                AddUserScreen()
-            }
-        }
-        val text = composeTestRule.activity.getString(R.string.user_sex_placeholder)
-        composeTestRule.onNodeWithTag("input-sex").assertTextContains(text)
-    }
-
     @Test fun theButtonForCreatingTheUserShouldBeShown() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
@@ -199,12 +171,12 @@ class AddUserActivityTest {
         }
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.mainClock.advanceTimeBy(3_000)
-        verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", "Man", "24")) }
+        verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", Sex.MALE, "24")) }
     }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
@@ -216,7 +188,7 @@ class AddUserActivityTest {
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
+        composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
     }
@@ -230,8 +202,8 @@ class AddUserActivityTest {
         }
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
     }
@@ -245,10 +217,48 @@ class AddUserActivityTest {
         composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
         composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
         composeTestRule.onNodeWithTag("input-age").performTextInput("24")
-        composeTestRule.onNodeWithTag("input-sex").performTextInput("Man")
+        composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
 
         composeTestRule.mainClock.advanceTimeBy(3_000)
         composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
+    }
+
+    @Test fun initiallyNoSexOptionShouldBeSelected() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("sex-1").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-2").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-3").assertIsNotSelected()
+    }
+
+    @Test fun clickingOnASexOptionShouldSelectIt() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("sex-1").performClick()
+        composeTestRule.onNodeWithTag("sex-1").assertIsSelected()
+    }
+
+    @Test fun onlyASingleItemShouldBeSelectedAtATime() {
+        composeTestRule.setContent {
+            WorkoutLoggerTheme {
+                AddUserScreen()
+            }
+        }
+        composeTestRule.onNodeWithTag("sex-1").performClick()
+        composeTestRule.onNodeWithTag("sex-2").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-3").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-2").performClick()
+        composeTestRule.onNodeWithTag("sex-1").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-3").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-3").performClick()
+        composeTestRule.onNodeWithTag("sex-1").assertIsNotSelected()
+        composeTestRule.onNodeWithTag("sex-2").assertIsNotSelected()
     }
 }

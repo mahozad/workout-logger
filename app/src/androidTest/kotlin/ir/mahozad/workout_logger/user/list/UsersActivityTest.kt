@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.flow.flowOf
@@ -19,8 +20,8 @@ class UsersActivityTest {
     val viewModel = mockk<UsersViewModel>()
 
     @Test fun usersShouldBeDisplayed() {
-        val user1 = User(1, "John", "Smith", "Man", "24")
-        val user2 = User(2, "Jane", "Smith", "Woman", "25")
+        val user1 = User(1, "John", "Smith", Sex.MALE, "24")
+        val user2 = User(2, "Jane", "Smith", Sex.FEMALE, "25")
         every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
@@ -36,8 +37,8 @@ class UsersActivityTest {
 
     @Test fun theUsersListShouldBeScrollable() {
         val users = listOf(
-            User(1, "John", "Smith", "Man", "24"),
-            User(2, "Jane", "Smith", "Woman", "25")
+            User(1, "John", "Smith", Sex.MALE, "24"),
+            User(2, "Jane", "Smith", Sex.FEMALE, "25")
         )
         every { viewModel.getAllUsers() } returns flowOf(users)
         composeTestRule.setContent {
@@ -50,8 +51,8 @@ class UsersActivityTest {
 
     @Test fun thereShouldBeProperNumberOfDividersBetweenUsers_OneLessThanTotalNumberOfUsers() {
         val users = listOf(
-            User(1, "John", "Smith", "Man", "24"),
-            User(2, "Jane", "Smith", "Woman", "25")
+            User(1, "John", "Smith", Sex.MALE, "24"),
+            User(2, "Jane", "Smith", Sex.FEMALE, "25")
         )
         every { viewModel.getAllUsers() } returns flowOf(users)
         composeTestRule.setContent {

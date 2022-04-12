@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.data.AppDatabase
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
@@ -39,15 +40,15 @@ class UserDaoTest {
     }
 
     @Test fun whenDatabaseIsEmptyInsertingASingleUserShouldSucceed() = runTest {
-        val user = User(0, "John", "Smith", "Man", "24")
+        val user = User(0, "John", "Smith", Sex.MALE, "24")
         userDao.insert(user)
         val users = userDao.getAllUsers().first()
         assertThat(users).isEqualTo(listOf(user.copy(id = 1)))
     }
 
     @Test fun insertingTwoUsersShouldSucceed() = runTest {
-        val user1 = User(0, "John", "Smith", "Man", "24")
-        val user2 = User(0, "Jane", "Smith", "Woman", "25")
+        val user1 = User(0, "John", "Smith", Sex.MALE, "24")
+        val user2 = User(0, "Jane", "Smith", Sex.FEMALE, "25")
         userDao.insert(user1)
         userDao.insert(user2)
         val users = userDao.getAllUsers().first()
@@ -56,13 +57,13 @@ class UserDaoTest {
 
     @Test fun insertingAUserEntityWithExistingIdShouldFail() = runTest {
         val existingUsers = listOf(
-            User(0, "A", "E", "Man", "24"),
-            User(0, "B", "F", "Man", "24"),
-            User(0, "C", "G", "Man", "24"),
-            User(0, "D", "H", "Man", "24")
+            User(0, "A", "E", Sex.MALE, "24"),
+            User(0, "B", "F", Sex.MALE, "24"),
+            User(0, "C", "G", Sex.MALE, "24"),
+            User(0, "D", "H", Sex.MALE, "24")
         )
         for (user in existingUsers) userDao.insert(user)
-        val user = User(3, "John", "Smith", "Man", "24")
+        val user = User(3, "John", "Smith", Sex.MALE, "24")
         val exception = runCatching { userDao.insert(user) }
             .exceptionOrNull() ?: error("The insertion did not fail")
         assertThat(exception).isInstanceOf(SQLiteConstraintException::class.java)

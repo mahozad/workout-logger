@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.workout_logger.R
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
 import kotlinx.coroutines.delay
@@ -38,13 +39,14 @@ class AddUserActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
     var isSuccessPromptVisible by remember { mutableStateOf(false) }
     var firstName by rememberSaveable { mutableStateOf("") }
     var lastName by rememberSaveable { mutableStateOf("") }
-    var sex by rememberSaveable { mutableStateOf("") }
     var age by rememberSaveable { mutableStateOf("") }
+    var sex by rememberSaveable { mutableStateOf<Sex?>(null) }
     Column {
         Text(stringResource(R.string.user_information), Modifier.align(Alignment.CenterHorizontally))
         Column(Modifier.weight(1f, fill = true).fillMaxSize().padding(8.dp)) {
@@ -74,17 +76,39 @@ fun AddUserScreen(viewModel: AddUserViewModel = viewModel()) {
                 onTextChange = { age = it }
             )
             Spacer(modifier = Modifier.height(10.dp))
-            Input(
-                shouldRequestFocus = false,
-                stringResource(R.string.user_sex),
-                stringResource(R.string.user_sex_placeholder),
-                tag = "input-sex",
-                onTextChange = { sex = it }
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.user_sex))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = sex == Sex.MALE,
+                        onClick = { sex = Sex.MALE },
+                        modifier = Modifier.testTag("sex-1")
+                    )
+                    Text(stringResource(R.string.sex_male))
+                    Spacer(Modifier.width(10.dp))
+                    RadioButton(
+                        selected = sex == Sex.FEMALE,
+                        onClick = { sex = Sex.FEMALE },
+                        modifier = Modifier.testTag("sex-2")
+                    )
+                    Text(stringResource(R.string.sex_female))
+                    Spacer(Modifier.width(10.dp))
+                    RadioButton(
+                        selected = sex == Sex.OTHER,
+                        onClick = { sex = Sex.OTHER },
+                        modifier = Modifier.testTag("sex-3")
+                    )
+                    Text(stringResource(R.string.sex_other))
+                }
+            }
         }
         Button(
             onClick = {
-                val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex, age))
+                val wasSuccessful = viewModel.addUser(User(0, firstName, lastName, sex!!, age))
                 if (wasSuccessful) isSuccessPromptVisible = true
             },
             modifier = Modifier

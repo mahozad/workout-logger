@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
@@ -45,6 +46,7 @@ fun UsersScreen(viewModel: UsersViewModel = viewModel()) {
     ) {
         users.forEachIndexed() { index, user ->
             Text(user.firstName)
+            Text(stringResource(user.sex.displayStringRes))
             if (index < users.lastIndex) Divider(Modifier.testTag("divider"))
         }
     }

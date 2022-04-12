@@ -1,5 +1,6 @@
 package ir.mahozad.workout_logger.user.add
 
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.user.UserRepository
 import kotlinx.coroutines.flow.emptyFlow
@@ -32,9 +33,9 @@ class AddUserViewModelTest {
 
     @Test fun `Adding a new user should succeed`() = runTest {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
-        val repositoryUser = User(0, "John", "Smith", "Man", "24")
+        val repositoryUser = User(0, "John", "Smith", Sex.MALE, "24")
         every(userRepository.getAllUsers()) returns flowOf(listOf(repositoryUser))
-        val user = User(0, "John", "Smith", "Man", "24")
+        val user = User(0, "John", "Smith", Sex.MALE, "24")
         val viewModel = AddUserViewModel(userRepository, dispatcher)
         val wasSuccessful = viewModel.addUser(user)
         advanceUntilIdle() // Required: insert a delay in viewModel before repository call to see why

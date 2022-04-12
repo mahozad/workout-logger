@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.data.AppDatabase
+import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.data.Workout
 import ir.mahozad.workout_logger.user.UserDao
@@ -44,7 +45,7 @@ class WorkoutDaoTest {
     }
 
     @Test fun whenThereIsASingleWorkoutGetAllShouldReturnWorkoutWithProperUser() = runTest {
-        val user = User(0, "John", "Smith", "Man", "24")
+        val user = User(0, "John", "Smith", Sex.MALE, "24")
         val workout = Workout(0, 23, 19, 1)
         userDao.insert(user)
         workoutDao.insert(workout)
