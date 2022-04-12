@@ -12,11 +12,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -42,7 +39,7 @@ class WorkoutActivity : ComponentActivity() {
         setContent {
             WorkoutLoggerTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    WorkoutScreen()
+                    WorkoutScreen { finish() }
                 }
             }
         }
@@ -50,10 +47,11 @@ class WorkoutActivity : ComponentActivity() {
 }
 
 @Composable
-fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel()) {
+fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel(), onFinish: () -> Unit = {}) {
     val uriHandler = LocalUriHandler.current
     var total by rememberSaveable { mutableStateOf(0) }
     var correct by rememberSaveable { mutableStateOf(0) }
+    val shouldFinish by viewModel.shouldFinish.collectAsState()
     Column(
         Modifier
             .testTag("screen")
@@ -112,10 +110,14 @@ fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel()) {
             onTextChange = { correct = it.toInt() }
         )
         Spacer(Modifier.height(16.dp))
-        Button(onClick = {
-            viewModel.addWorkout(total, correct)
-        }, modifier = Modifier.testTag("finish").align(Alignment.CenterHorizontally), content = {
+        Button(
+            onClick = { viewModel.addWorkout(total, correct) },
+            modifier = Modifier.testTag("finish").align(Alignment.CenterHorizontally)
+        ) {
             Text(stringResource(R.string.finish))
-        })
+        }
+        if (shouldFinish == Result.Success) {
+            onFinish()
+        }
     }
 }
