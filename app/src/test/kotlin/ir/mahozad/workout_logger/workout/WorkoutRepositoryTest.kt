@@ -1,5 +1,6 @@
 package ir.mahozad.workout_logger.workout
 
+import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.data.Workout
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -19,19 +20,21 @@ class WorkoutRepositoryTest {
     @Mock lateinit var workoutDao: WorkoutDao
 
     @Test fun `Adding a workout should call the proper dao method`() = runTest {
-        val workout = Workout(0, 23, 19)
+        val workout = Workout(0, 23, 19, 1)
         val repository = WorkoutRepository(workoutDao)
         repository.addWorkout(workout)
         verify(workoutDao).insert(workout)
     }
 
     @Test fun `After adding a workout getAllWorkouts should return it`() = runTest {
-        val databaseWorkout = Workout(1, 24, 19)
-        every(workoutDao.getAll()) returns flowOf(listOf(databaseWorkout))
+        val user = User(1, "John", "Smith", "Man", "24")
+        val databaseWorkout = Workout(1, 24, 19, user.id)
+        every(workoutDao.getAll()) returns flowOf(mapOf(user to listOf(databaseWorkout)))
         val repository = WorkoutRepository(workoutDao)
-        val workout = Workout(0, 24, 19)
+        val workout = Workout(0, 24, 19, 1)
         repository.addWorkout(workout)
         val workouts = repository.getAllWorkouts()
-        assertThat(workouts.first()).isEqualTo(listOf(workout.copy(id = 1)))
+        assertThat(workouts.first().values.first().first()).isEqualTo(workout.copy(id = 1))
+        assertThat(workouts.first().keys.first()).isEqualTo(user)
     }
 }

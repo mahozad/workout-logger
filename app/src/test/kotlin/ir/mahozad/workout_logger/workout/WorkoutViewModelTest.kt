@@ -22,8 +22,8 @@ class WorkoutViewModelTest {
     @Test fun `Adding a workout should call the proper repository method`() = runTest {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
         val viewModel = WorkoutViewModel(workoutRepository, dispatcher)
-        val workout = Workout(0, 23, 19)
-        viewModel.addWorkout(workout.total, workout.correct)
+        val workout = Workout(0, 23, 19, 1)
+        viewModel.addWorkout(workout.total, workout.correct, workout.userId)
         advanceUntilIdle() // Required: insert a delay in viewModel before repository call to see why
         verify(workoutRepository)/* OR verifyBlocking */.addWorkout(workout)
     }
@@ -34,10 +34,10 @@ class WorkoutViewModelTest {
     @Test fun `Adding a valid workout should eventually return success as result`() = runTest {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
         val viewModel = WorkoutViewModel(workoutRepository, dispatcher)
-        val workout = Workout(0, 23, 19)
+        val workout = Workout(0, 23, 19, 1)
         val results = mutableListOf<Result>()
         val job = launch(dispatcher) { viewModel.shouldFinish.toList(results) }
-        viewModel.addWorkout(workout.total, workout.correct)
+        viewModel.addWorkout(workout.total, workout.correct, workout.userId)
         runCurrent()
         assertThat(results).isEqualTo(listOf(Result.Ongoing, Result.Success))
         job.cancel()
@@ -46,12 +46,12 @@ class WorkoutViewModelTest {
     @Test fun `After adding a valid workout, calling add again should return proper results`() = runTest {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
         val viewModel = WorkoutViewModel(workoutRepository, dispatcher)
-        val workout1 = Workout(0, 23, 19)
-        val workout2 = Workout(0, 20, 13)
+        val workout1 = Workout(0, 23, 19, 1)
+        val workout2 = Workout(0, 20, 13, 1)
         val results = mutableListOf<Result>()
         val job = launch(dispatcher) { viewModel.shouldFinish.toList(results) }
-        viewModel.addWorkout(workout1.total, workout1.correct)
-        viewModel.addWorkout(workout2.total, workout2.correct)
+        viewModel.addWorkout(workout1.total, workout1.correct, workout1.userId)
+        viewModel.addWorkout(workout2.total, workout2.correct, workout2.userId)
         runCurrent()
         assertThat(results).isEqualTo(
             listOf(

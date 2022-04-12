@@ -39,7 +39,7 @@ class WorkoutActivity : ComponentActivity() {
         setContent {
             WorkoutLoggerTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    WorkoutScreen { finish() }
+                    WorkoutScreen(intent.getIntExtra("userId", -1)) { finish() }
                 }
             }
         }
@@ -47,7 +47,11 @@ class WorkoutActivity : ComponentActivity() {
 }
 
 @Composable
-fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel(), onFinish: () -> Unit = {}) {
+fun WorkoutScreen(
+    userId: Int,
+    viewModel: WorkoutViewModel = viewModel(),
+    onFinish: () -> Unit = {}
+) {
     val uriHandler = LocalUriHandler.current
     var total by rememberSaveable { mutableStateOf(0) }
     var correct by rememberSaveable { mutableStateOf(0) }
@@ -111,7 +115,7 @@ fun WorkoutScreen(viewModel: WorkoutViewModel = viewModel(), onFinish: () -> Uni
         )
         Spacer(Modifier.height(16.dp))
         Button(
-            onClick = { viewModel.addWorkout(total, correct) },
+            onClick = { viewModel.addWorkout(total, correct, userId) },
             modifier = Modifier.testTag("finish").align(Alignment.CenterHorizontally)
         ) {
             Text(stringResource(R.string.finish))

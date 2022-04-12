@@ -23,7 +23,7 @@ class WorkoutActivityTest {
     @Test fun theWorkoutImageShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("image").assertIsDisplayed()
@@ -32,7 +32,7 @@ class WorkoutActivityTest {
     @Test fun theWorkoutImageAttributionShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("image-attribution").assertIsDisplayed()
@@ -41,7 +41,7 @@ class WorkoutActivityTest {
     @Test fun theWorkoutDescriptionShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("description").assertIsDisplayed()
@@ -50,7 +50,7 @@ class WorkoutActivityTest {
     @Test fun theFinishButtonShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("finish").assertIsDisplayed()
@@ -59,7 +59,7 @@ class WorkoutActivityTest {
     @Test fun theLabelForTotalInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         val text = composeTestRule.activity.getString(R.string.total_pushups)
@@ -69,7 +69,7 @@ class WorkoutActivityTest {
     @Test fun theTotalInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("input-total").assertIsDisplayed()
@@ -78,7 +78,7 @@ class WorkoutActivityTest {
     @Test fun theTotalInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         val text = composeTestRule.activity.getString(R.string.total_pushups_placeholder)
@@ -88,7 +88,7 @@ class WorkoutActivityTest {
     @Test fun theLabelForCorrectRepetitionsInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         val text = composeTestRule.activity.getString(R.string.correct_pushups)
@@ -98,7 +98,7 @@ class WorkoutActivityTest {
     @Test fun theCorrectRepetitionsInputShouldBeDisplayed() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("input-correct").assertIsDisplayed()
@@ -107,7 +107,7 @@ class WorkoutActivityTest {
     @Test fun theCorrectRepetitionsInputShouldInitiallyBeEmptyAndHaveProperPlaceholder() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         val text = composeTestRule.activity.getString(R.string.correct_pushups_placeholder)
@@ -116,21 +116,23 @@ class WorkoutActivityTest {
 
     @Test fun whenTheInputsAreValidClickingOnTheFinishButtonShouldCallViewModelWithCorrectValues() {
         every { viewModel.shouldFinish } returns MutableStateFlow(Result.Success)
+        // composeTestRule.activity.intent.putExtra("userId", 1)
+        val userId = 1
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen(viewModel)
+                WorkoutScreen(userId, viewModel)
             }
         }
         composeTestRule.onNodeWithTag("input-total").performTextInput("23")
         composeTestRule.onNodeWithTag("input-correct").performTextInput("19")
         composeTestRule.onNodeWithTag("finish").performClick()
-        verify(exactly = 1) { viewModel.addWorkout(23, 19) }
+        verify(exactly = 1) { viewModel.addWorkout(23, 19, userId) }
     }
 
     @Test fun theWorkoutScreenShouldBeScrollable() {
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen()
+                WorkoutScreen(userId = 0)
             }
         }
         composeTestRule.onNodeWithTag("screen").assert(hasScrollAction())
@@ -160,7 +162,7 @@ class WorkoutActivityTest {
         val callback = { isInvoked = true }
         composeTestRule.setContent {
             WorkoutLoggerTheme {
-                WorkoutScreen(viewModel, callback)
+                WorkoutScreen(userId = 0, viewModel, callback)
             }
         }
         composeTestRule.onNodeWithTag("input-total").performTextInput("23")

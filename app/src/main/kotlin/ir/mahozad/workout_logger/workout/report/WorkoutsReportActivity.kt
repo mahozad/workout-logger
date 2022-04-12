@@ -35,15 +35,19 @@ class WorkoutsReportActivity : ComponentActivity() {
 
 @Composable
 fun WorkoutsScreen(viewModel: WorkoutsReportViewModel = viewModel()) {
-    val workouts by viewModel.getAllWorkouts().collectAsState(emptyList())
+    val workouts by viewModel.getAllWorkouts().collectAsState(emptyMap())
     Column(
         Modifier
             .testTag("workouts")
             .verticalScroll(rememberScrollState())
     ) {
-        workouts.forEachIndexed { index, workout ->
-            Text(workout.total.toString())
-            if (index < workouts.lastIndex) Divider(Modifier.testTag("divider"))
-        }
+        val totalItems = workouts.values.sumOf { it.size }
+        workouts
+            .entries
+            .flatMap { it.value }
+            .forEachIndexed { index, workout ->
+                Text(workout.total.toString())
+                if (index < totalItems - 1) Divider(Modifier.testTag("divider"))
+            }
     }
 }

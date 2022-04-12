@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Workout(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val total: Int,
-    val correct: Int
+    val correct: Int,
+    val userId: Int
 )

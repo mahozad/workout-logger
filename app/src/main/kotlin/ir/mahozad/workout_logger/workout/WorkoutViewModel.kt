@@ -19,10 +19,10 @@ class WorkoutViewModel @Inject constructor(
     private val addResult: MutableStateFlow<Result> = MutableStateFlow(Result.Ongoing)
     val shouldFinish: StateFlow<Result> = addResult
 
-    fun addWorkout(total: Int, correct: Int) {
+    fun addWorkout(total: Int, correct: Int, userId: Int) {
         addResult.value = Result.Ongoing
         viewModelScope.launch(dispatcher) {
-            val workout = Workout(0, total, correct)
+            val workout = Workout(0, total, correct, userId)
             workoutRepository.addWorkout(workout)
             addResult.value = Result.Success
         }
