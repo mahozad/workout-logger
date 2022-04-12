@@ -69,7 +69,12 @@ fun UserSelectionScreen(viewModel: UserSelectionViewModel = viewModel()) {
             }
         }
         Button(
-            onClick = { context.startActivity(Intent(context, WorkoutActivity::class.java)) },
+            onClick = {
+                val intent = Intent(context, WorkoutActivity::class.java).apply {
+                    putExtra("userId", selected)
+                }
+                context.startActivity(intent)
+            },
             modifier = Modifier.testTag("button").align(Alignment.CenterHorizontally),
             enabled = selected >= 0
         ) {
