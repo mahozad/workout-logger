@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -7,6 +9,9 @@ plugins {
 
 val composeVersion : String by rootProject.extra
 val roomVersion : String by rootProject.extra
+val environment = System.getenv()
+fun getLocalProperty(key: String) = gradleLocalProperties(rootDir).getProperty(key)
+fun String.toFile() = File(this)
 
 android {
     compileSdk = 32
@@ -33,9 +38,21 @@ android {
         }
     }
 
+    signingConfigs {
+        create("ReleaseSigningConfig") {
+            keyAlias = getLocalProperty("signing.keyAlias") ?: environment["SIGNING_KEY_ALIAS"] ?: error("Error!")
+            storeFile = (getLocalProperty("signing.storeFile") ?: environment["SIGNING_STORE_FILE"] ?: error("Error!")).toFile()
+            keyPassword = getLocalProperty("signing.keyPassword") ?: environment["SIGNING_KEY_PASSWORD"] ?: error("Error!")
+            storePassword = getLocalProperty("signing.storePassword") ?: environment["SIGNING_STORE_PASSWORD"] ?: error("Error!")
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs["ReleaseSigningConfig"]
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
