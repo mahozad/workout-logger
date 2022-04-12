@@ -24,4 +24,6 @@
   <string name="correct_pushups">تعداد صحیح شنا:</string>
   <string name="correct_pushups_placeholder">۱۸</string>
   <string name="workouts_report">گزارش تمرین‌ها</string>
+  <string name="workout_total">تعداد کل:</string>
+  <string name="workout_correct">تعداد صحیح:</string>
 </resources>

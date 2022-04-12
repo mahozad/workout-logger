@@ -24,4 +24,6 @@
   <string name="correct_pushups">Correct repetitions:</string>
   <string name="correct_pushups_placeholder">18</string>
   <string name="workouts_report">Workouts Report</string>
+  <string name="workout_total">Total:</string>
+  <string name="workout_correct">Correct:</string>
 </resources>
