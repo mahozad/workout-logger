@@ -117,6 +117,7 @@ class WorkoutActivityTest {
     @Test fun whenTheInputsAreValidClickingOnTheFinishButtonShouldCallViewModelWithCorrectValues() {
         every { viewModel.shouldFinish } returns MutableStateFlow(Result.Success)
         // composeTestRule.activity.intent.putExtra("userId", 1)
+        // See https://stackoverflow.com/q/68267861 if we want to start activity with extras
         val userId = 1
         composeTestRule.setContent {
             WorkoutLoggerTheme {
