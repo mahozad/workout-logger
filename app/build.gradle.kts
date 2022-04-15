@@ -7,8 +7,8 @@ plugins {
     kotlin("kapt")
 }
 
-val composeVersion : String by rootProject.extra
-val roomVersion : String by rootProject.extra
+val composeVersion: String by rootProject.extra
+val roomVersion: String by rootProject.extra
 val environment = System.getenv()
 fun getLocalProperty(key: String) = gradleLocalProperties(rootDir).getProperty(key)
 fun String.toFile() = File(this)
