@@ -5,9 +5,9 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
-import ir.mahozad.workout_logger.data.Sex
-import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import ir.mahozad.workout_logger.users
+import ir.mahozad.workout_logger.usersWithId
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -20,9 +20,7 @@ class UsersActivityTest {
     val viewModel = mockk<UsersViewModel>()
 
     @Test fun usersShouldBeDisplayed() {
-        val user1 = User(1, "John", "Smith", Sex.MALE, "24")
-        val user2 = User(2, "Jane", "Smith", Sex.FEMALE, "25")
-        every { viewModel.getAllUsers() } returns flowOf(listOf(user1, user2))
+        every { viewModel.getAllUsers() } returns flowOf(usersWithId.take(2))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 UsersScreen(viewModel)
@@ -31,16 +29,12 @@ class UsersActivityTest {
         composeTestRule.onNodeWithTag("users")
             .assertIsDisplayed()
             .onChildren()
-            .assertAny(hasText("John"))
-            .assertAny(hasText("Jane"))
+            .assertAny(hasText(users[0].firstName))
+            .assertAny(hasText(users[1].firstName))
     }
 
     @Test fun theUsersListShouldBeScrollable() {
-        val users = listOf(
-            User(1, "John", "Smith", Sex.MALE, "24"),
-            User(2, "Jane", "Smith", Sex.FEMALE, "25")
-        )
-        every { viewModel.getAllUsers() } returns flowOf(users)
+        every { viewModel.getAllUsers() } returns flowOf(usersWithId.take(2))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 UsersScreen(viewModel)
@@ -50,11 +44,7 @@ class UsersActivityTest {
     }
 
     @Test fun thereShouldBeProperNumberOfDividersBetweenUsers_OneLessThanTotalNumberOfUsers() {
-        val users = listOf(
-            User(1, "John", "Smith", Sex.MALE, "24"),
-            User(2, "Jane", "Smith", Sex.FEMALE, "25")
-        )
-        every { viewModel.getAllUsers() } returns flowOf(users)
+        every { viewModel.getAllUsers() } returns flowOf(usersWithId.take(2))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 UsersScreen(viewModel)

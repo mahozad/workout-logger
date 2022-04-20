@@ -8,9 +8,8 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import ir.mahozad.workout_logger.R
-import ir.mahozad.workout_logger.data.Sex
-import ir.mahozad.workout_logger.data.User
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import ir.mahozad.workout_logger.users
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
@@ -79,10 +78,10 @@ class AddUserActivityTest {
                 AddUserScreen()
             }
         }
-        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput(users[0].firstName)
         composeTestRule.activity.requestedOrientation = SCREEN_ORIENTATION_LANDSCAPE
         composeTestRule.waitForIdle()
-        composeTestRule.onNodeWithTag("input-first-name").assertTextEquals("John")
+        composeTestRule.onNodeWithTag("input-first-name").assertTextEquals(users[0].firstName)
     }
 
     @Test fun theLabelForLastNameInputShouldBeDisplayed() {
@@ -169,14 +168,14 @@ class AddUserActivityTest {
                 AddUserScreen(viewModel)
             }
         }
-        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput(users[0].firstName)
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput(users[0].lastName)
+        composeTestRule.onNodeWithTag("input-age").performTextInput(users[0].age)
         composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.waitForIdle()
         composeTestRule.mainClock.advanceTimeBy(3_000)
-        verify(exactly = 1) { viewModel.addUser(User(0, "John", "Smith", Sex.MALE, "24")) }
+        verify(exactly = 1) { viewModel.addUser(users[0]) }
     }
 
     @Test fun whenTheInputsAreValidClickingOnTheButtonForCreatingUserShouldShowSuccessMessage() {
@@ -185,9 +184,9 @@ class AddUserActivityTest {
                 AddUserScreen()
             }
         }
-        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput(users[0].firstName)
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput(users[0].lastName)
+        composeTestRule.onNodeWithTag("input-age").performTextInput(users[0].age)
         composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertIsDisplayed()
@@ -200,9 +199,9 @@ class AddUserActivityTest {
                 AddUserScreen(viewModel)
             }
         }
-        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput(users[0].firstName)
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput(users[0].lastName)
+        composeTestRule.onNodeWithTag("input-age").performTextInput(users[0].age)
         composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
         composeTestRule.onNodeWithTag("success-prompt").assertDoesNotExist()
@@ -214,9 +213,9 @@ class AddUserActivityTest {
                 AddUserScreen()
             }
         }
-        composeTestRule.onNodeWithTag("input-first-name").performTextInput("John")
-        composeTestRule.onNodeWithTag("input-last-name").performTextInput("Smith")
-        composeTestRule.onNodeWithTag("input-age").performTextInput("24")
+        composeTestRule.onNodeWithTag("input-first-name").performTextInput(users[0].firstName)
+        composeTestRule.onNodeWithTag("input-last-name").performTextInput(users[0].lastName)
+        composeTestRule.onNodeWithTag("input-age").performTextInput(users[0].age)
         composeTestRule.onNodeWithTag("sex-1").performClick()
         composeTestRule.onNodeWithTag("button-create-user").performClick()
 

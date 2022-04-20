@@ -5,10 +5,10 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.every
 import io.mockk.mockk
-import ir.mahozad.workout_logger.data.Sex
-import ir.mahozad.workout_logger.data.User
-import ir.mahozad.workout_logger.data.Workout
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import ir.mahozad.workout_logger.usersWithId
+import ir.mahozad.workout_logger.workouts
+import ir.mahozad.workout_logger.workoutsWithId
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -21,12 +21,7 @@ class WorkoutsReportActivityTest {
     val viewModel = mockk<WorkoutsReportViewModel>()
 
     @Test fun workoutsShouldBeDisplayed() {
-        val user = User(1, "John", "Smith", Sex.MALE, "24")
-        val workouts = listOf(
-            Workout(1, 24, 19, user.id),
-            Workout(2, 21, 13, user.id)
-        )
-        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(user to workouts))
+        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(usersWithId[0] to workoutsWithId.take(2)))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 WorkoutsScreen(viewModel)
@@ -35,17 +30,12 @@ class WorkoutsReportActivityTest {
         composeTestRule.onNodeWithTag("workouts")
             .assertIsDisplayed()
             .onChildren()
-            .assertAny(hasText("24"))
-            .assertAny(hasText("21"))
+            .assertAny(hasText(workouts[0].total.toString()))
+            .assertAny(hasText(workouts[1].total.toString()))
     }
 
     @Test fun theWorkoutsListShouldBeScrollable() {
-        val user = User(1, "John", "Smith", Sex.MALE, "24")
-        val workouts = listOf(
-            Workout(1, 24, 19, user.id),
-            Workout(2, 21, 13, user.id)
-        )
-        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(user to workouts))
+        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(usersWithId[0] to workoutsWithId.take(2)))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 WorkoutsScreen(viewModel)
@@ -55,12 +45,7 @@ class WorkoutsReportActivityTest {
     }
 
     @Test fun thereShouldBeProperNumberOfDividersBetweenReports_OneLessThanTotalNumberOfReports() {
-        val user = User(1, "John", "Smith", Sex.MALE, "24")
-        val workouts = listOf(
-            Workout(1, 24, 19, user.id),
-            Workout(2, 20, 13, user.id)
-        )
-        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(user to workouts))
+        every { viewModel.getAllWorkouts() } returns flowOf(mapOf(usersWithId[0] to workoutsWithId.take(2)))
         composeTestRule.setContent {
             WorkoutLoggerTheme {
                 WorkoutsScreen(viewModel)
@@ -70,12 +55,10 @@ class WorkoutsReportActivityTest {
     }
 
     @Test fun whenThereIsTwoWorkoutsWithDifferentUsersTheyShouldBeDisplayedCorrectly() {
-        val user1 = User(1, "John", "Smith", Sex.MALE, "24")
-        val user2 = User(2, "Jane", "Smith", Sex.FEMALE, "25")
-        val workout1 = Workout(1, 24, 19, user1.id)
-        val workout2 = Workout(2, 20, 13, user2.id)
+        val workout1 = workoutsWithId[0].copy(userId = usersWithId[0].id)
+        val workout2 = workoutsWithId[1].copy(userId = usersWithId[1].id)
         every { viewModel.getAllWorkouts() } returns flowOf(
-            mapOf(user1 to listOf(workout1), user2 to listOf(workout2))
+            mapOf(usersWithId[0] to listOf(workout1), usersWithId[1] to listOf(workout2))
         )
         composeTestRule.setContent {
             WorkoutLoggerTheme {

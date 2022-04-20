@@ -8,6 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import ir.mahozad.workout_logger.R
 import ir.mahozad.workout_logger.ui.theme.WorkoutLoggerTheme
+import ir.mahozad.workout_logger.workouts
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
@@ -124,10 +125,10 @@ class WorkoutActivityTest {
                 WorkoutScreen(userId, viewModel)
             }
         }
-        composeTestRule.onNodeWithTag("input-total").performTextInput("23")
-        composeTestRule.onNodeWithTag("input-correct").performTextInput("19")
+        composeTestRule.onNodeWithTag("input-total").performTextInput(workouts[0].total.toString())
+        composeTestRule.onNodeWithTag("input-correct").performTextInput(workouts[0].correct.toString())
         composeTestRule.onNodeWithTag("finish").performClick()
-        verify(exactly = 1) { viewModel.addWorkout(23, 19, userId) }
+        verify(exactly = 1) { viewModel.addWorkout(workouts[0].total, workouts[0].correct, userId) }
     }
 
     @Test fun theWorkoutScreenShouldBeScrollable() {
@@ -166,8 +167,8 @@ class WorkoutActivityTest {
                 WorkoutScreen(userId = 0, viewModel, callback)
             }
         }
-        composeTestRule.onNodeWithTag("input-total").performTextInput("23")
-        composeTestRule.onNodeWithTag("input-correct").performTextInput("19")
+        composeTestRule.onNodeWithTag("input-total").performTextInput(workouts[0].total.toString())
+        composeTestRule.onNodeWithTag("input-correct").performTextInput(workouts[0].correct.toString())
         composeTestRule.onNodeWithTag("finish").performClick()
         flow.value = Result.Success
         composeTestRule.waitForIdle()

@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import ir.mahozad.workout_logger.data.AppDatabase
 import ir.mahozad.workout_logger.data.Sex
 import ir.mahozad.workout_logger.data.User
+import ir.mahozad.workout_logger.users
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runTest
@@ -40,29 +41,21 @@ class UserDaoTest {
     }
 
     @Test fun whenDatabaseIsEmptyInsertingASingleUserShouldSucceed() = runTest {
-        val user = User(0, "John", "Smith", Sex.MALE, "24")
-        userDao.insert(user)
+        userDao.insert(users[0])
         val users = userDao.getAllUsers().first()
-        assertThat(users).isEqualTo(listOf(user.copy(id = 1)))
+        assertThat(users).isEqualTo(listOf(users[0].copy(id = 1)))
     }
 
     @Test fun insertingTwoUsersShouldSucceed() = runTest {
-        val user1 = User(0, "John", "Smith", Sex.MALE, "24")
-        val user2 = User(0, "Jane", "Smith", Sex.FEMALE, "25")
-        userDao.insert(user1)
-        userDao.insert(user2)
+        userDao.insert(users[0])
+        userDao.insert(users[1])
         val users = userDao.getAllUsers().first()
-        assertThat(users).isEqualTo(listOf(user1.copy(id = 1), user2.copy(id = 2)))
+        assertThat(users).isEqualTo(listOf(users[0].copy(id = 1), users[1].copy(id = 2)))
     }
 
     @Test fun insertingAUserEntityWithExistingIdShouldFail() = runTest {
-        val existingUsers = listOf(
-            User(0, "A", "E", Sex.MALE, "24"),
-            User(0, "B", "F", Sex.MALE, "24"),
-            User(0, "C", "G", Sex.MALE, "24"),
-            User(0, "D", "H", Sex.MALE, "24")
-        )
-        for (user in existingUsers) userDao.insert(user)
+        for (user in users.take(4))
+            userDao.insert(user)
         val user = User(3, "John", "Smith", Sex.MALE, "24")
         val exception = runCatching { userDao.insert(user) }
             .exceptionOrNull() ?: error("The insertion did not fail")
