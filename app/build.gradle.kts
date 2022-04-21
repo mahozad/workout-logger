@@ -7,8 +7,9 @@ plugins {
     kotlin("kapt")
 }
 
-val composeVersion: String by rootProject.extra
-val roomVersion: String by rootProject.extra
+val composeVersion = "1.1.1"
+val roomVersion = "2.4.2"
+val hiltVersion: String by rootProject
 val environment = System.getenv()
 fun getLocalProperty(key: String) = gradleLocalProperties(rootDir).getProperty(key)
 fun String.toFile() = File(this)
@@ -96,7 +97,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
-    implementation("com.google.dagger:hilt-android:2.41")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
