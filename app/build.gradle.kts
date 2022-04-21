@@ -27,6 +27,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        resourceConfigurations += setOf("fa", "en")
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += mapOf(
